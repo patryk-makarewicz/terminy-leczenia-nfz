@@ -24,7 +24,7 @@ const customJestConfig = {
     '!<rootDir>/**/layout.*',
     '!<rootDir>/api/**/*',
     '!<rootDir>/i18n/**/*',
-    '!<rootDir>/tests/**/*'
+    '!<rootDir>/providers/**/*'
   ]
 };
 

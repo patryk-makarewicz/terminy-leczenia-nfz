@@ -1,5 +1,8 @@
-export type lngModel = {
+export enum Lng {
+  PL = 'pl'
+}
+export type lngProps = {
   params: {
-    lng: string;
+    lng: Lng.PL;
   };
 };
