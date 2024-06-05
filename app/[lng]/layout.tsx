@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 
 import { ReactQueryProvider } from '@/providers/reactQueryProvider';
@@ -14,7 +15,7 @@ const fontSans = FontSans({
   variable: '--font-sans'
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Terminy leczenia NFZ',
   description: 'Strona do wyszukiwania najblizszych terminów leczenia NFZ.',
   category: 'website',
@@ -25,7 +26,18 @@ export const metadata = {
       name: 'Patryk Makarewicz',
       url: 'https://www.linkedin.com/in/patryk-makarewicz/'
     }
-  ]
+  ],
+  openGraph: {
+    title: 'Terminy leczenia NFZ',
+    description: 'Strona do wyszukiwania najblizszych terminów leczenia NFZ.',
+    images: ['/cover.png'],
+    url: '',
+    siteName: 'Terminy leczenia NFZ'
+  },
+  metadataBase: new URL('https://acme.com'),
+  icons: {
+    icon: '/favicon.ico'
+  }
 };
 
 export const generateStaticParams = async () => {
