@@ -1,7 +1,6 @@
 import { lngProps } from '@/api/global.model';
+import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/i18n';
-
-import { Button } from '../../components/ui/button';
 
 const Home = async ({ params: { lng } }: lngProps) => {
   const { t } = await useTranslation(lng);
