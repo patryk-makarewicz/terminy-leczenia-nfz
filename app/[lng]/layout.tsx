@@ -1,10 +1,14 @@
 import { Inter as FontSans } from 'next/font/google';
 
+import { ReactQueryProvider } from '@/providers/reactQueryProvider';
 import { dir } from 'i18next';
 
-import { languages } from '@/app/i18n/settings';
-import { cn } from '@/lib/utils';
-import '@/styles/globals.css';
+import { Lng } from '@/api/global.model';
+import { languages } from '@/i18n/settings';
+import MainLayout from '@/layouts/MainLayout';
+
+import { cn } from '../../lib/utils';
+import '../../styles/globals.css';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -23,14 +27,18 @@ export const generateStaticParams = async () => {
 type RootLayoutProps = {
   children: React.ReactNode;
   params: {
-    lng: string;
+    lng: Lng;
   };
 };
 
 const RootLayout = ({ children, params: { lng } }: RootLayoutProps) => {
   return (
     <html lang={lng} dir={dir(lng)}>
-      <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>{children}</body>
+      <body className={cn('bg-background font-sans antialiased', fontSans.variable)}>
+        <ReactQueryProvider>
+          <MainLayout lng={lng}>{children}</MainLayout>
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 };
