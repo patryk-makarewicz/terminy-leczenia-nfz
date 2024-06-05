@@ -1,17 +1,17 @@
-import { lngModel } from '@/app/api/global.model';
-import { useTranslation } from '@/app/i18n';
+import { lngProps } from '@/api/global.model';
+import { Data } from '@/components/Data/Data';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/i18n';
 
-const Home = async ({ params: { lng } }: lngModel) => {
+const Home = async ({ params: { lng } }: lngProps) => {
   const { t } = await useTranslation(lng);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="my-12">
-        <h1>{t('appName')}</h1>
-        <Button>Click me</Button>
-      </div>
-    </main>
+    <div className="my-12 flex-1">
+      <h1>{t('appName')}</h1>
+      <Button>Click me</Button>
+      <Data />
+    </div>
   );
 };
 
