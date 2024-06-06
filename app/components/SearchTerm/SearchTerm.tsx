@@ -11,8 +11,11 @@ export type SearchParams = {
   province: string;
   benefitForChildren: boolean;
   provider: string;
+  query: string;
+  city: string;
 };
 export const SearchTerm = () => {
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
   const { data, isLoading, isError } = useGetQueue(searchParams);
   const onHandleSearch = (data: SearchParams) => {
@@ -28,8 +31,35 @@ export const SearchTerm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors }
-  } = useForm<SearchParams>();
+  } = useForm<SearchParams>({
+    defaultValues: {
+      urgent: '1'
+    }
+  });
+
+  const query = watch('query');
+  const city = watch('city');
+
+  useEffect(() => {
+    const subscription = watch((value) => {
+      console.log(value);
+      if (value.query && value.query.length >= 3) {
+        // Fetch suggestions from the backend
+        fetch(
+          `https://api.nfz.gov.pl/app-itl-api/benefits?page=1&limit=10&format=json&name=${value.query}&api-version=1.3`
+        )
+          .then((response) => response.json())
+          .then((data) => setSuggestions(data.data))
+          .catch((error) => console.error('Error fetching suggestions:', error));
+      } else {
+        setSuggestions([]);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, query]);
 
   const onSubmit: SubmitHandler<SearchParams> = (data) => {
     console.log(data);
@@ -61,7 +91,7 @@ export const SearchTerm = () => {
         <div>
           <label>przypadek:</label>
           <div>
-            <input type="radio" value={1} defaultChecked {...register('urgent')} id="urgent1" />
+            <input type="radio" value={1} {...register('urgent')} id="urgent1" />
             <label htmlFor="urgent1">stabilny</label>
           </div>
           <div>
@@ -85,9 +115,21 @@ export const SearchTerm = () => {
           {errors.province && <span>This field is required</span>}
         </div>
         <div>
+          <label>Query:</label>
+          <input type="text" {...register('query')} />
+        </div>
+        <div>
           <label>provider:</label>
           <select {...register('provider', { required: true })}>
-            <option value="PORADNIA STOMATOLOGICZNA">PORADNIA STOMATOLOGICZNA</option>
+            <option value="" disabled selected>
+              Select provider
+            </option>
+            {suggestions.length > 0 &&
+              suggestions.map((suggestion, idx) => (
+                <option key={`${idx}-${suggestion}`} value={suggestion}>
+                  {suggestion}
+                </option>
+              ))}
           </select>
           {errors.provider && <span>This field is required</span>}
         </div>
