@@ -14,7 +14,7 @@ export const useGetQueue = (query: SearchParams | null) => {
   });
 
   return {
-    data: useMemo(() => (data ? data : []), [data]),
+    data: data ?? undefined,
     isLoading: isLoading || isFetching,
     isError
   };

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import { QueueData } from '@/api/QueueAPI/Queue.model';
 import { Button } from '@/components/ui/button';
 import { useGetQueue } from '@/hooks/useGetQueue';
 
@@ -19,12 +20,12 @@ export const SearchTerm = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [suggestionsLocalities, setSuggestionsLocalities] = useState<string[]>([]);
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
-  const { data, isLoading, isError } = useGetQueue(searchParams);
+  const { data: QueueList, isLoading, isError } = useGetQueue(searchParams);
   const onHandleSearch = (data: SearchParams) => {
     setSearchParams(data);
   };
 
-  console.log(data);
+  console.log(QueueList);
 
   useEffect(() => {
     setSearchParams(null);
@@ -177,10 +178,10 @@ export const SearchTerm = () => {
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error</p>}
 
-      {data.data && data.data.length === 0 && <p>Nie znaleziono wyników</p>}
-      {data.data && data.data.length > 0 && (
+      {QueueList?.data && QueueList.data.length === 0 && <p>Nie znaleziono wyników</p>}
+      {QueueList?.data && QueueList.data.length > 0 && (
         <ul>
-          {data.data.map((item: any) => (
+          {QueueList.data.map((item: QueueData) => (
             <li key={item.id}>
               {item.attributes.provider} - {item.attributes.dates.date}
             </li>
