@@ -10,12 +10,14 @@ export type SearchParams = {
   urgent: string;
   province: string;
   benefitForChildren: boolean;
-  provider: string;
+  benefit: string;
+  localities: string;
   query: string;
-  city: string;
+  queryCity: string;
 };
 export const SearchTerm = () => {
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [suggestionsLocalities, setSuggestionsLocalities] = useState<string[]>([]);
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
   const { data, isLoading, isError } = useGetQueue(searchParams);
   const onHandleSearch = (data: SearchParams) => {
@@ -40,11 +42,10 @@ export const SearchTerm = () => {
   });
 
   const query = watch('query');
-  const city = watch('city');
+  const queryCity = watch('localities');
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value);
       if (value.query && value.query.length >= 3) {
         // Fetch suggestions from the backend
         fetch(
@@ -59,10 +60,28 @@ export const SearchTerm = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, query]);
+  }, [query]);
+
+  useEffect(() => {
+    const subscriptionCity = watch((value) => {
+      if (value.queryCity && value.queryCity.length >= 3) {
+        // Fetch suggestions from the backend
+
+        fetch(
+          `https://api.nfz.gov.pl/app-itl-api/localities?page=1&limit=10&format=json&name=${value.queryCity}&province=11&api-version=1.3`
+        )
+          .then((response) => response.json())
+          .then((data) => setSuggestionsLocalities(data.data))
+          .catch((error) => console.error('Error fetching suggestions:', error));
+      } else {
+        setSuggestionsLocalities([]);
+      }
+    });
+
+    return () => subscriptionCity.unsubscribe();
+  }, [queryCity]);
 
   const onSubmit: SubmitHandler<SearchParams> = (data) => {
-    console.log(data);
     onHandleSearch(data);
   };
 
@@ -115,14 +134,14 @@ export const SearchTerm = () => {
           {errors.province && <span>This field is required</span>}
         </div>
         <div>
-          <label>Query:</label>
+          <label>Query usługa:</label>
           <input type="text" {...register('query')} />
         </div>
         <div>
-          <label>provider:</label>
-          <select {...register('provider', { required: true })}>
+          <label>benefit usługa:</label>
+          <select {...register('benefit', { required: true })}>
             <option value="" disabled selected>
-              Select provider
+              Select benefit
             </option>
             {suggestions.length > 0 &&
               suggestions.map((suggestion, idx) => (
@@ -131,13 +150,43 @@ export const SearchTerm = () => {
                 </option>
               ))}
           </select>
-          {errors.provider && <span>This field is required</span>}
+          {errors.benefit && <span>This field is required</span>}
+        </div>
+        <div>
+          <label>Query city:</label>
+          <input type="text" {...register('queryCity')} />
+        </div>
+        <div>
+          <label>miasto:</label>
+          <select {...register('localities', { required: true })}>
+            <option value="" disabled selected>
+              Select city
+            </option>
+            {suggestionsLocalities.length > 0 &&
+              suggestionsLocalities.map((localities, idx) => (
+                <option key={`${idx}-${localities}`} value={localities}>
+                  {localities}
+                </option>
+              ))}
+          </select>
+          {errors.localities && <span>This field is required</span>}
         </div>
         <Button type="submit">Szukaj</Button>
       </form>
 
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error</p>}
+
+      {data.data && data.data.length === 0 && <p>Nie znaleziono wyników</p>}
+      {data.data && data.data.length > 0 && (
+        <ul>
+          {data.data.map((item: any) => (
+            <li key={item.id}>
+              {item.attributes.provider} - {item.attributes.dates.date}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

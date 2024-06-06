@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 
 import { QueueAPI } from '@/api';
 import { QueryKey } from '@/api/queryKeys';
@@ -13,7 +14,7 @@ export const useGetQueue = (query: SearchParams | null) => {
   });
 
   return {
-    data: data ?? undefined,
+    data: useMemo(() => (data ? data : []), [data]),
     isLoading: isLoading || isFetching,
     isError
   };
