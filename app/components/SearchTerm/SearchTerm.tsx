@@ -1,22 +1,30 @@
 'use client';
 
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import { provinces } from '@/api/DictionaryAPI/Dictionary.api';
 import { QueueData } from '@/api/QueueAPI/Queue.model';
-import { Button } from '@/components/ui/button';
+import { SearchParams } from '@/api/QueueAPI/Queue.model';
+import { Combobox } from '@/components';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/';
+import { Button, Label, RadioGroup, RadioGroupItem, Checkbox } from '@/components/ui/';
 import { useGetQueue } from '@/hooks/useGetQueue';
+import { cn } from '@/lib/utils';
 
-export type SearchParams = {
-  urgent: string;
-  province: string;
-  benefitForChildren: boolean;
-  benefit: string;
-  localities: string;
-  query: string;
-  queryCity: string;
-};
 export const SearchTerm = () => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [suggestionsLocalities, setSuggestionsLocalities] = useState<string[]>([]);
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
@@ -44,6 +52,9 @@ export const SearchTerm = () => {
 
   const query = watch('query');
   const queryCity = watch('localities');
+  const province = watch('province');
+
+  console.log(province);
 
   useEffect(() => {
     const subscription = watch((value) => {
@@ -86,93 +97,75 @@ export const SearchTerm = () => {
     onHandleSearch(data);
   };
 
-  const provinces = [
-    { value: '01', label: 'dolnośląskie' },
-    { value: '02', label: 'kujawsko-pomorskie' },
-    { value: '03', label: 'lubelskie' },
-    { value: '04', label: 'lubuskie' },
-    { value: '05', label: 'łódzkie' },
-    { value: '06', label: 'małopolskie' },
-    { value: '07', label: 'mazowieckie' },
-    { value: '08', label: 'opolskie' },
-    { value: '09', label: 'podkarpackie' },
-    { value: '10', label: 'podlaskie' },
-    { value: '11', label: 'pomorskie' },
-    { value: '12', label: 'śląskie' },
-    { value: '13', label: 'świętokrzyskie' },
-    { value: '14', label: 'warmińsko-mazurskie' },
-    { value: '15', label: 'wielkopolskie' },
-    { value: '16', label: 'zachodniopomorskie' }
-  ];
-
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>przypadek:</label>
-          <div>
-            <input type="radio" value={1} {...register('urgent')} id="urgent1" />
-            <label htmlFor="urgent1">stabilny</label>
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-4">
+            <Label htmlFor="urgent1">przypadek:</Label>
+            <RadioGroup defaultValue="1">
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="1" id="urgent1" {...register('urgent')} />
+                <Label htmlFor="urgent1">stabilny</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="2" id="urgent1" {...register('urgent')} />
+                <Label htmlFor="urgent2">pilny</Label>
+              </div>
+            </RadioGroup>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox id="benefitForChildren" {...register('benefitForChildren')} />
+            <label
+              htmlFor="benefitForChildren"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              świadczenia udzielane dzieciom
+            </label>
           </div>
           <div>
-            <input type="radio" value={2} {...register('urgent')} id="urgent2" />
-            <label htmlFor="urgent2">pilny</label>
+            <Combobox register={register} options={provinces} placeholder="Wybirze województwo" />
+            {errors.province && <span>This field is required</span>}
           </div>
-        </div>
-        <div>
-          <label>benefitForChildren:</label>
-          <input type="checkbox" {...register('benefitForChildren')} id="benefitForChildren" />
-        </div>
-        <div>
-          <label>województwo:</label>
-          <select {...register('province', { required: true })}>
-            {provinces.map((province) => (
-              <option key={province.value} value={province.value}>
-                {province.label}
+          <div>
+            <label>Query usługa:</label>
+            <input type="text" {...register('query')} />
+          </div>
+          <div>
+            <label>benefit usługa:</label>
+            <select {...register('benefit', { required: true })}>
+              <option value="" disabled selected>
+                Select benefit
               </option>
-            ))}
-          </select>
-          {errors.province && <span>This field is required</span>}
+              {suggestions.length > 0 &&
+                suggestions.map((suggestion, idx) => (
+                  <option key={`${idx}-${suggestion}`} value={suggestion}>
+                    {suggestion}
+                  </option>
+                ))}
+            </select>
+            {errors.benefit && <span>This field is required</span>}
+          </div>
+          <div>
+            <label>Query city:</label>
+            <input type="text" {...register('queryCity')} />
+          </div>
+          <div>
+            <label>miasto:</label>
+            <select {...register('localities', { required: true })}>
+              <option value="" disabled selected>
+                Select city
+              </option>
+              {suggestionsLocalities.length > 0 &&
+                suggestionsLocalities.map((localities, idx) => (
+                  <option key={`${idx}-${localities}`} value={localities}>
+                    {localities}
+                  </option>
+                ))}
+            </select>
+            {errors.localities && <span>This field is required</span>}
+          </div>
+          <Button type="submit">Szukaj</Button>
         </div>
-        <div>
-          <label>Query usługa:</label>
-          <input type="text" {...register('query')} />
-        </div>
-        <div>
-          <label>benefit usługa:</label>
-          <select {...register('benefit', { required: true })}>
-            <option value="" disabled selected>
-              Select benefit
-            </option>
-            {suggestions.length > 0 &&
-              suggestions.map((suggestion, idx) => (
-                <option key={`${idx}-${suggestion}`} value={suggestion}>
-                  {suggestion}
-                </option>
-              ))}
-          </select>
-          {errors.benefit && <span>This field is required</span>}
-        </div>
-        <div>
-          <label>Query city:</label>
-          <input type="text" {...register('queryCity')} />
-        </div>
-        <div>
-          <label>miasto:</label>
-          <select {...register('localities', { required: true })}>
-            <option value="" disabled selected>
-              Select city
-            </option>
-            {suggestionsLocalities.length > 0 &&
-              suggestionsLocalities.map((localities, idx) => (
-                <option key={`${idx}-${localities}`} value={localities}>
-                  {localities}
-                </option>
-              ))}
-          </select>
-          {errors.localities && <span>This field is required</span>}
-        </div>
-        <Button type="submit">Szukaj</Button>
       </form>
 
       {isLoading && <p>Loading...</p>}

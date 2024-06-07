@@ -81,3 +81,13 @@ export type QueueDTO = {
   links: Links;
   data: QueueData[];
 };
+
+export type SearchParams = {
+  urgent: string;
+  province: string;
+  benefitForChildren: boolean;
+  benefit: string;
+  localities: string;
+  query: string;
+  queryCity: string;
+};

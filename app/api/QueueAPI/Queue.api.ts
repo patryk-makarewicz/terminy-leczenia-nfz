@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { SearchParams } from '@/components/SearchTerm';
+import { SearchParams } from '@/api/QueueAPI/Queue.model';
 
 import { BASE_URL, useAPImocks } from '../config';
 import { getQueueMock } from './Queue.mock';
