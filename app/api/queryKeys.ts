@@ -1,3 +1,5 @@
 export const QueryKey = {
-  getQueue: 'getQueue'
+  getQueue: 'getQueue',
+  getBenefitDictionary: 'getBenefitDictionary',
+  getLocalitiesDictionary: 'getLocalitiesDictionary'
 };

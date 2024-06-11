@@ -4,7 +4,7 @@ import { BASE_URL, useAPImocks } from '../config';
 import { getBenefitDictionaryMock, getLocalitiesDictionaryMock } from './Dictionary.mock';
 import { BenefitDictionary, DictionaryResponse, LocalitiesDictionary } from './Dictionary.model';
 
-export const getBenefitDictionary = ({ benefit }: BenefitDictionary) =>
+export const getBenefitDictionary = (benefit: BenefitDictionary) =>
   useAPImocks
     ? getBenefitDictionaryMock()
     : axios
@@ -14,7 +14,7 @@ export const getBenefitDictionary = ({ benefit }: BenefitDictionary) =>
         >(`${BASE_URL}/benefits?page=1&limit=10&format=json&name=${benefit}&api-version=1.3`)
         .then(({ data }) => data);
 
-export const getLocalitiesDictionary = ({ localities }: LocalitiesDictionary) =>
+export const getLocalitiesDictionary = (localities: LocalitiesDictionary) =>
   useAPImocks
     ? getLocalitiesDictionaryMock()
     : axios

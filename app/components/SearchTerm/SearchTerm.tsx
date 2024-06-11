@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { provinces } from '@/api/DictionaryAPI/Dictionary.api';
+import { Suggestions } from '@/api/DictionaryAPI/Dictionary.model';
 import { QueueData } from '@/api/QueueAPI/Queue.model';
 import { SearchParams } from '@/api/QueueAPI/Queue.model';
 import {
@@ -19,77 +20,47 @@ import {
   Input
 } from '@/components/ui/';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useGetBenefitDictionary } from '@/hooks/useGetBenefitDictionary';
+import { useGetLocalitiesDictionary } from '@/hooks/useGetLocalitiesDictionary';
 import { useGetQueue } from '@/hooks/useGetQueue';
 
-type Suggestions = {
-  value: string;
-  label: string;
-}[];
 export const SearchTerm = () => {
-  const [suggestions, setSuggestions] = useState<Suggestions>([]);
-  const [suggestionsLocalities, setSuggestionsLocalities] = useState<Suggestions>([]);
-  const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
-  const { data: QueueList, isLoading, isError } = useGetQueue(searchParams);
   const form = useForm<SearchParams>({
     defaultValues: {
       urgent: '1',
       benefitForChildren: false
     }
   });
+  const [benefitDictionarySuggestions, setBenefitDictionarySuggestions] = useState<Suggestions>([]);
+  const [localitiesDictionarySuggestions, setLocalitiesDictionarySuggestions] = useState<Suggestions>([]);
+  const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
+  const { data: QueueList, isLoading: isQueueListLoading, isError: isQueueListError } = useGetQueue(searchParams);
+  const {
+    data: BenefitDictionary,
+    isLoading: isBenefitDictionaryLoading,
+    isError: isBenefitDictionaryError
+  } = useGetBenefitDictionary(form.watch('benefit'));
+  const {
+    data: LocalitesDictionary,
+    isLoading: isLocalitesDictionaryLoading,
+    isError: isLocalitesDictionaryError
+  } = useGetLocalitiesDictionary(form.watch('localities'));
+
   const onHandleSearch = (data: SearchParams) => {
     setSearchParams(data);
   };
 
   useEffect(() => {
     setSearchParams(null);
-  }, [isLoading]);
+  }, [isQueueListLoading]);
 
   useEffect(() => {
-    const subscription = form.watch((value) => {
-      if (value.benefit && value.benefit.length >= 3) {
-        // Fetch suggestions from the backend
-        fetch(
-          `https://api.nfz.gov.pl/app-itl-api/benefits?page=1&limit=10&format=json&name=${value.benefit}&api-version=1.3`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            const mappedSuggestions = data.data.map((item: string) => ({
-              value: item,
-              label: item
-            }));
-            setSuggestions(mappedSuggestions);
-          })
-          .catch((error) => console.error('Error fetching suggestions:', error));
-      } else {
-        setSuggestions([]);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [form.watch('benefit')]);
+    setBenefitDictionarySuggestions(BenefitDictionary);
+  }, [BenefitDictionary]);
 
   useEffect(() => {
-    const subscriptionCity = form.watch((value) => {
-      if (value.localities && value.localities.length >= 3) {
-        fetch(
-          `https://api.nfz.gov.pl/app-itl-api/localities?page=1&limit=10&format=json&name=${value.localities}&api-version=1.3`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            const mappedSuggestions = data.data.map((item: string) => ({
-              value: item,
-              label: item
-            }));
-            setSuggestionsLocalities(mappedSuggestions);
-          })
-          .catch((error) => console.error('Error fetching suggestions:', error));
-      } else {
-        setSuggestionsLocalities([]);
-      }
-    });
-
-    return () => subscriptionCity.unsubscribe();
-  }, [form.watch('localities')]);
+    setLocalitiesDictionarySuggestions(LocalitesDictionary);
+  }, [LocalitesDictionary]);
 
   const onSubmit: SubmitHandler<SearchParams> = (data) => {
     console.log(data);
@@ -184,10 +155,10 @@ export const SearchTerm = () => {
             />
             <div>
               <ul>
-                {suggestions.length > 0 &&
-                  suggestions.map((suggestion) => (
-                    <li key={suggestion.value} onClick={() => form.setValue('benefit', suggestion.value)}>
-                      {suggestion.value}
+                {benefitDictionarySuggestions.length > 0 &&
+                  benefitDictionarySuggestions.map((benefitSuggestion) => (
+                    <li key={benefitSuggestion.value} onClick={() => form.setValue('benefit', benefitSuggestion.value)}>
+                      {benefitSuggestion.value}
                     </li>
                   ))}
               </ul>
@@ -211,10 +182,12 @@ export const SearchTerm = () => {
             />
             <div>
               <ul>
-                {suggestionsLocalities.length > 0 &&
-                  suggestionsLocalities.map((suggestion) => (
-                    <li key={suggestion.value} onClick={() => form.setValue('localities', suggestion.value)}>
-                      {suggestion.value}
+                {localitiesDictionarySuggestions.length > 0 &&
+                  localitiesDictionarySuggestions.map((localitiesSuggestion) => (
+                    <li
+                      key={localitiesSuggestion.value}
+                      onClick={() => form.setValue('localities', localitiesSuggestion.value)}>
+                      {localitiesSuggestion.value}
                     </li>
                   ))}
               </ul>
@@ -225,8 +198,8 @@ export const SearchTerm = () => {
         </form>
       </Form>
 
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error</p>}
+      {isQueueListLoading && <p>Loading...</p>}
+      {isQueueListError && <p>Error</p>}
 
       {QueueList?.data && QueueList.data.length === 0 && <p>Nie znaleziono wyników</p>}
       {QueueList?.data && QueueList.data.length > 0 && (

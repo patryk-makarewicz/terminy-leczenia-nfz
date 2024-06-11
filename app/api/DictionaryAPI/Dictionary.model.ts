@@ -1,9 +1,12 @@
-export type DictionaryResponse = string[];
-
-export type BenefitDictionary = {
-  benefit: string;
+export type DictionaryResponse = {
+  data: string[];
 };
 
-export type LocalitiesDictionary = {
-  localities: string;
-};
+export type BenefitDictionary = string;
+
+export type LocalitiesDictionary = string;
+
+export type Suggestions = {
+  value: string;
+  label: string;
+}[];
