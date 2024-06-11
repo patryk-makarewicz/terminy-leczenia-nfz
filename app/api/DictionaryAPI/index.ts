@@ -1,1 +1,1 @@
-// export * from './Dictionary.api';
+export * from './Dictionary.api';

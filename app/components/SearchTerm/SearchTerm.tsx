@@ -72,7 +72,7 @@ export const SearchTerm = () => {
     const subscriptionCity = form.watch((value) => {
       if (value.localities && value.localities.length >= 3) {
         fetch(
-          `https://api.nfz.gov.pl/app-itl-api/localities?page=1&limit=10&format=json&name=${value.localities}&province=11&api-version=1.3`
+          `https://api.nfz.gov.pl/app-itl-api/localities?page=1&limit=10&format=json&name=${value.localities}&api-version=1.3`
         )
           .then((response) => response.json())
           .then((data) => {

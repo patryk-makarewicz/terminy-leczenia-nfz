@@ -88,6 +88,4 @@ export type SearchParams = {
   benefitForChildren: boolean;
   benefit: string;
   localities: string;
-  query: string;
-  queryCity: string;
 };
