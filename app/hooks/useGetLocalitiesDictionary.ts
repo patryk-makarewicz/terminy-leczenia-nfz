@@ -7,7 +7,7 @@ import { QueryKey } from '@/api/queryKeys';
 import { transformResponseToForm } from '@/lib/utils';
 
 export const useGetLocalitiesDictionary = (localities: LocalitiesDictionary | null) => {
-  const { data, isLoading, isFetching, isError } = useQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: [QueryKey.getLocalitiesDictionary],
     queryFn: () => DictionaryAPI.getLocalitiesDictionary(localities!),
     refetchOnWindowFocus: false,
@@ -17,6 +17,7 @@ export const useGetLocalitiesDictionary = (localities: LocalitiesDictionary | nu
   return {
     data: useMemo(() => (data ? transformResponseToForm(data) : []), [data]),
     isLoading: isLoading || isFetching,
-    isError
+    isError,
+    refetch
   };
 };

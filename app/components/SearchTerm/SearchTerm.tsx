@@ -20,6 +20,7 @@ import {
   Input
 } from '@/components/ui/';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useGetBenefitDictionary } from '@/hooks/useGetBenefitDictionary';
 import { useGetLocalitiesDictionary } from '@/hooks/useGetLocalitiesDictionary';
 import { useGetQueue } from '@/hooks/useGetQueue';
@@ -31,6 +32,9 @@ export const SearchTerm = () => {
       benefitForChildren: false
     }
   });
+  const watchBenefit = useDebounce(form.watch('benefit'), 300);
+  const watchLocalities = useDebounce(form.watch('localities'), 300);
+
   const [benefitDictionarySuggestions, setBenefitDictionarySuggestions] = useState<Suggestions>([]);
   const [localitiesDictionarySuggestions, setLocalitiesDictionarySuggestions] = useState<Suggestions>([]);
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
@@ -38,16 +42,22 @@ export const SearchTerm = () => {
   const {
     data: BenefitDictionary,
     isLoading: isBenefitDictionaryLoading,
-    isError: isBenefitDictionaryError
-  } = useGetBenefitDictionary(form.watch('benefit'));
+    isError: isBenefitDictionaryError,
+    refetch: refetchBenefitDictionary
+  } = useGetBenefitDictionary(watchBenefit);
   const {
     data: LocalitesDictionary,
     isLoading: isLocalitesDictionaryLoading,
-    isError: isLocalitesDictionaryError
-  } = useGetLocalitiesDictionary(form.watch('localities'));
+    isError: isLocalitesDictionaryError,
+    refetch: refetchLocalitiesDictionary
+  } = useGetLocalitiesDictionary(watchLocalities);
 
   const onHandleSearch = (data: SearchParams) => {
     setSearchParams(data);
+  };
+
+  const onSubmit: SubmitHandler<SearchParams> = (data) => {
+    onHandleSearch(data);
   };
 
   useEffect(() => {
@@ -55,18 +65,28 @@ export const SearchTerm = () => {
   }, [isQueueListLoading]);
 
   useEffect(() => {
+    if (watchBenefit?.length >= 3) {
+      refetchBenefitDictionary();
+    } else if (watchBenefit?.length <= 2) {
+      setBenefitDictionarySuggestions([]);
+    }
+  }, [watchBenefit]);
+
+  useEffect(() => {
+    if (watchLocalities?.length >= 3) {
+      refetchLocalitiesDictionary();
+    } else if (watchLocalities?.length <= 2) {
+      setLocalitiesDictionarySuggestions([]);
+    }
+  }, [watchLocalities]);
+
+  useEffect(() => {
     setBenefitDictionarySuggestions(BenefitDictionary);
-  }, [BenefitDictionary]);
+  }, [isBenefitDictionaryLoading]);
 
   useEffect(() => {
     setLocalitiesDictionarySuggestions(LocalitesDictionary);
-  }, [LocalitesDictionary]);
-
-  const onSubmit: SubmitHandler<SearchParams> = (data) => {
-    console.log(data);
-
-    onHandleSearch(data);
-  };
+  }, [isLocalitesDictionaryLoading]);
 
   return (
     <div>
@@ -157,7 +177,12 @@ export const SearchTerm = () => {
               <ul>
                 {benefitDictionarySuggestions.length > 0 &&
                   benefitDictionarySuggestions.map((benefitSuggestion) => (
-                    <li key={benefitSuggestion.value} onClick={() => form.setValue('benefit', benefitSuggestion.value)}>
+                    <li
+                      key={benefitSuggestion.value}
+                      onClick={() => {
+                        form.setValue('benefit', benefitSuggestion.value);
+                        setBenefitDictionarySuggestions([]);
+                      }}>
                       {benefitSuggestion.value}
                     </li>
                   ))}
@@ -186,7 +211,10 @@ export const SearchTerm = () => {
                   localitiesDictionarySuggestions.map((localitiesSuggestion) => (
                     <li
                       key={localitiesSuggestion.value}
-                      onClick={() => form.setValue('localities', localitiesSuggestion.value)}>
+                      onClick={() => {
+                        form.setValue('localities', localitiesSuggestion.value);
+                        setLocalitiesDictionarySuggestions([]);
+                      }}>
                       {localitiesSuggestion.value}
                     </li>
                   ))}

@@ -7,7 +7,7 @@ import { QueryKey } from '@/api/queryKeys';
 import { transformResponseToForm } from '@/lib/utils';
 
 export const useGetBenefitDictionary = (benefit: BenefitDictionary | null) => {
-  const { data, isLoading, isFetching, isError } = useQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
     queryKey: [QueryKey.getBenefitDictionary],
     queryFn: () => DictionaryAPI.getBenefitDictionary(benefit!),
     refetchOnWindowFocus: false,
@@ -17,6 +17,7 @@ export const useGetBenefitDictionary = (benefit: BenefitDictionary | null) => {
   return {
     data: useMemo(() => (data ? transformResponseToForm(data) : []), [data]),
     isLoading: isLoading || isFetching,
-    isError
+    isError,
+    refetch
   };
 };
