@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { provinces } from '@/api/DictionaryAPI/Dictionary.api';
-import { Suggestions } from '@/api/DictionaryAPI/Dictionary.model';
 import { QueueData } from '@/api/QueueAPI/Queue.model';
 import { SearchParams } from '@/api/QueueAPI/Queue.model';
 import {
@@ -35,18 +34,21 @@ export const SearchTerm = () => {
   const watchBenefit = useDebounce(form.watch('benefit'), 300);
   const watchLocalities = useDebounce(form.watch('localities'), 300);
 
-  const [benefitDictionarySuggestions, setBenefitDictionarySuggestions] = useState<Suggestions>([]);
-  const [localitiesDictionarySuggestions, setLocalitiesDictionarySuggestions] = useState<Suggestions>([]);
+  const [isBenefitDictionarySuggestionsVisible, setIsBenefitDictionarySuggestionsVisible] = useState(false);
+  const [isLocalitiesDictionarySuggestionsVisible, setIsLocalitiesDictionarySuggestionsVisible] = useState(false);
+  const [isSuggestionClicked, setIsSuggestionClicked] = useState(false);
+
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
+
   const { data: QueueList, isLoading: isQueueListLoading, isError: isQueueListError } = useGetQueue(searchParams);
   const {
-    data: BenefitDictionary,
+    data: benefitDictionary,
     isLoading: isBenefitDictionaryLoading,
     isError: isBenefitDictionaryError,
     refetch: refetchBenefitDictionary
   } = useGetBenefitDictionary(watchBenefit);
   const {
-    data: LocalitesDictionary,
+    data: localitesDictionary,
     isLoading: isLocalitesDictionaryLoading,
     isError: isLocalitesDictionaryError,
     refetch: refetchLocalitiesDictionary
@@ -65,28 +67,32 @@ export const SearchTerm = () => {
   }, [isQueueListLoading]);
 
   useEffect(() => {
+    if (isSuggestionClicked) {
+      setIsSuggestionClicked(false);
+      return;
+    }
+
     if (watchBenefit?.length >= 3) {
       refetchBenefitDictionary();
+      setIsBenefitDictionarySuggestionsVisible(true);
     } else if (watchBenefit?.length <= 2) {
-      setBenefitDictionarySuggestions([]);
+      setIsBenefitDictionarySuggestionsVisible(false);
     }
   }, [watchBenefit]);
 
   useEffect(() => {
+    if (isSuggestionClicked) {
+      setIsSuggestionClicked(false);
+      return;
+    }
+
     if (watchLocalities?.length >= 3) {
       refetchLocalitiesDictionary();
+      setIsLocalitiesDictionarySuggestionsVisible(true);
     } else if (watchLocalities?.length <= 2) {
-      setLocalitiesDictionarySuggestions([]);
+      setIsLocalitiesDictionarySuggestionsVisible(false);
     }
   }, [watchLocalities]);
-
-  useEffect(() => {
-    setBenefitDictionarySuggestions(BenefitDictionary);
-  }, [isBenefitDictionaryLoading]);
-
-  useEffect(() => {
-    setLocalitiesDictionarySuggestions(LocalitesDictionary);
-  }, [isLocalitesDictionaryLoading]);
 
   return (
     <div>
@@ -175,13 +181,14 @@ export const SearchTerm = () => {
             />
             <div>
               <ul>
-                {benefitDictionarySuggestions.length > 0 &&
-                  benefitDictionarySuggestions.map((benefitSuggestion) => (
+                {isBenefitDictionarySuggestionsVisible &&
+                  benefitDictionary.map((benefitSuggestion) => (
                     <li
                       key={benefitSuggestion.value}
                       onClick={() => {
                         form.setValue('benefit', benefitSuggestion.value);
-                        setBenefitDictionarySuggestions([]);
+                        setIsBenefitDictionarySuggestionsVisible(false);
+                        setIsSuggestionClicked(true);
                       }}>
                       {benefitSuggestion.value}
                     </li>
@@ -207,13 +214,14 @@ export const SearchTerm = () => {
             />
             <div>
               <ul>
-                {localitiesDictionarySuggestions.length > 0 &&
-                  localitiesDictionarySuggestions.map((localitiesSuggestion) => (
+                {isLocalitiesDictionarySuggestionsVisible &&
+                  localitesDictionary.map((localitiesSuggestion) => (
                     <li
                       key={localitiesSuggestion.value}
                       onClick={() => {
                         form.setValue('localities', localitiesSuggestion.value);
-                        setLocalitiesDictionarySuggestions([]);
+                        setIsLocalitiesDictionarySuggestionsVisible(false);
+                        setIsSuggestionClicked(true);
                       }}>
                       {localitiesSuggestion.value}
                     </li>
