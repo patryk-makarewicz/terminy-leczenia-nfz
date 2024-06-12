@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { provinces } from '@/api/DictionaryAPI/Dictionary.api';
@@ -23,6 +23,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useGetBenefitDictionary } from '@/hooks/useGetBenefitDictionary';
 import { useGetLocalitiesDictionary } from '@/hooks/useGetLocalitiesDictionary';
 import { useGetQueue } from '@/hooks/useGetQueue';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 export const SearchTerm = () => {
   const form = useForm<SearchParams>({
@@ -33,6 +34,9 @@ export const SearchTerm = () => {
   });
   const watchBenefit = useDebounce(form.watch('benefit'), 300);
   const watchLocalities = useDebounce(form.watch('localities'), 300);
+
+  const benefitDictionaryRef = useRef<HTMLDivElement>(null);
+  const localitiesDictionaryRef = useRef<HTMLDivElement>(null);
 
   const [isBenefitDictionarySuggestionsVisible, setIsBenefitDictionarySuggestionsVisible] = useState(false);
   const [isLocalitiesDictionarySuggestionsVisible, setIsLocalitiesDictionarySuggestionsVisible] = useState(false);
@@ -53,6 +57,9 @@ export const SearchTerm = () => {
     isError: isLocalitesDictionaryError,
     refetch: refetchLocalitiesDictionary
   } = useGetLocalitiesDictionary(watchLocalities);
+
+  useOutsideClick(benefitDictionaryRef, setIsBenefitDictionarySuggestionsVisible);
+  useOutsideClick(localitiesDictionaryRef, setIsLocalitiesDictionarySuggestionsVisible);
 
   const onHandleSearch = (data: SearchParams) => {
     setSearchParams(data);
@@ -179,7 +186,7 @@ export const SearchTerm = () => {
                 </FormItem>
               )}
             />
-            <div>
+            <div ref={benefitDictionaryRef}>
               <ul>
                 {isBenefitDictionarySuggestionsVisible &&
                   benefitDictionary.map((benefitSuggestion) => (
@@ -212,7 +219,7 @@ export const SearchTerm = () => {
                 </FormItem>
               )}
             />
-            <div>
+            <div ref={localitiesDictionaryRef}>
               <ul>
                 {isLocalitiesDictionarySuggestionsVisible &&
                   localitesDictionary.map((localitiesSuggestion) => (
