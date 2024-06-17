@@ -29,7 +29,10 @@ export const SearchTerm = () => {
   const form = useForm<SearchParams>({
     defaultValues: {
       urgent: '1',
-      benefitForChildren: false
+      benefitForChildren: false,
+      localities: '',
+      province: '',
+      benefit: ''
     }
   });
   const watchBenefit = useDebounce(form.watch('benefit'), 300);

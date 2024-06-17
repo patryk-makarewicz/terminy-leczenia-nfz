@@ -2,9 +2,9 @@ import { request } from '../request';
 import { DictionaryResponse } from './Dictionary.model';
 
 export const getBenefitDictionaryMock = () => {
-  return request<DictionaryResponse>(['Poradnia', 'Przychodnia']);
+  return request<DictionaryResponse>({ data: ['Poradnia', 'Przychodnia'] });
 };
 
 export const getLocalitiesDictionaryMock = () => {
-  return request<DictionaryResponse>(['Gdańsk']);
+  return request<DictionaryResponse>({ data: ['Gdańsk'] });
 };
