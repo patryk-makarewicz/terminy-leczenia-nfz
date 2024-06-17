@@ -97,30 +97,32 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
         <div className="mb-4 flex w-full items-start gap-2">
           <FormField
             control={form.control}
             name="urgent"
             render={({ field }) => (
-              <FormItem className="space-y-3 rounded-md border p-4 shadow">
-                <FormLabel>{t('form.urgent.label')}</FormLabel>
-                <FormControl>
-                  <RadioGroup onValueChange={field.onChange} defaultValue="1" className="flex flex-col space-y-1">
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="1" />
-                      </FormControl>
-                      <FormLabel className="font-normal">{t('form.urgent.stable')}</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="2" />
-                      </FormControl>
-                      <FormLabel className="font-normal">{t('form.urgent.urgent')}</FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
+              <FormItem className="rounded-md border p-4 shadow">
+                <div className="flex items-center gap-3">
+                  <FormLabel>{t('form.urgent.label')}</FormLabel>
+                  <FormControl>
+                    <RadioGroup onValueChange={field.onChange} defaultValue="1" className="flex flex-row items-center">
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="1" />
+                        </FormControl>
+                        <FormLabel className="font-normal">{t('form.urgent.stable')}</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="2" />
+                        </FormControl>
+                        <FormLabel className="font-normal">{t('form.urgent.urgent')}</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                </div>
                 <FormDescription>{t('form.urgent.info')}</FormDescription>
               </FormItem>
             )}
@@ -133,7 +135,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
                 <FormControl>
                   <Checkbox checked={field.value} defaultValue={0} onCheckedChange={field.onChange} />
                 </FormControl>
-                <div className="space-y-1 leading-none">
+                <div className="space-y-3.5 leading-none">
                   <FormLabel>{t('form.benefitForChildren.label')}</FormLabel>
                   <FormDescription>{t('form.benefitForChildren.info')}</FormDescription>
                 </div>
@@ -141,7 +143,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             )}
           />
         </div>
-        <div className="mb-4">
+        <div className="relative mb-4 rounded-md border p-4 shadow">
           <FormField
             control={form.control}
             name="benefit"
@@ -156,11 +158,12 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             )}
           />
           <div ref={benefitDictionaryRef}>
-            <ul>
-              {isBenefitDictionarySuggestionsVisible &&
-                benefitDictionary.map((benefitSuggestion) => (
+            {isBenefitDictionarySuggestionsVisible && (
+              <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-white p-2 shadow">
+                {benefitDictionary.map((benefitSuggestion) => (
                   <li
                     key={benefitSuggestion.value}
+                    className="w-full cursor-pointer rounded-md p-1 text-start hover:bg-gray-100"
                     onClick={() => {
                       form.setValue('benefit', benefitSuggestion.value);
                       setIsBenefitDictionarySuggestionsVisible(false);
@@ -169,16 +172,16 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
                     {benefitSuggestion.value}
                   </li>
                 ))}
-            </ul>
+              </ul>
+            )}
           </div>
         </div>
-
         <div className="mb-4 flex w-full gap-2">
           <FormField
             control={form.control}
             name="province"
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className="w-full rounded-md border p-4 shadow">
                 <FormLabel>{t('form.province.label')}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
@@ -198,7 +201,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
               </FormItem>
             )}
           />
-          <div className="w-full">
+          <div className="relative w-full rounded-md border p-4 shadow">
             <FormField
               control={form.control}
               name="localities"
@@ -213,11 +216,12 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
               )}
             />
             <div ref={localitiesDictionaryRef}>
-              <ul>
-                {isLocalitiesDictionarySuggestionsVisible &&
-                  localitesDictionary.map((localitiesSuggestion) => (
+              {isLocalitiesDictionarySuggestionsVisible && (
+                <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-white p-2 shadow">
+                  {localitesDictionary.map((localitiesSuggestion) => (
                     <li
                       key={localitiesSuggestion.value}
+                      className="w-full cursor-pointer rounded-md p-1 text-start hover:bg-gray-100"
                       onClick={() => {
                         form.setValue('localities', localitiesSuggestion.value);
                         setIsLocalitiesDictionarySuggestionsVisible(false);
@@ -226,11 +230,11 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
                       {localitiesSuggestion.value}
                     </li>
                   ))}
-              </ul>
+                </ul>
+              )}
             </div>
           </div>
         </div>
-
         <Button type="submit">{t('form.submit')}</Button>
       </form>
     </Form>

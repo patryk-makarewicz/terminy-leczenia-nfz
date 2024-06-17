@@ -21,18 +21,18 @@
     },
     "province": {
       "label": "Województwo",
-      "select": "Wybierz",
-      "info": "Wybierz województwo w którym szukasz usługi"
+      "select": "Wybierz województwo",
+      "info": "Wybierz województwo w którym szukasz świadczenia"
     },
     "benefit": {
-      "label": "Usługa",
-      "select": "Wpisz",
+      "label": "Świadczenie",
+      "select": "Wpisz nazwę świadczenia",
       "info": "Wybierz usługę którą szukasz"
     },
     "city": {
       "label": "Miasto",
-      "select": "Wpisz",
-      "info": "Wybierz miasto w którym szukasz usługi"
+      "select": "Wpisz nazwę miasta",
+      "info": "Wybierz miasto w którym szukasz świadczenia"
     }
   }
 }
