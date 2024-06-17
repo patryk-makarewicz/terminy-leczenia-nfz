@@ -24,8 +24,11 @@ import { useGetBenefitDictionary } from '@/hooks/useGetBenefitDictionary';
 import { useGetLocalitiesDictionary } from '@/hooks/useGetLocalitiesDictionary';
 import { useGetQueue } from '@/hooks/useGetQueue';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { useTranslation } from '@/i18n/client';
 
 export const SearchTerm = () => {
+  const { t } = useTranslation();
+
   const form = useForm<SearchParams>({
     defaultValues: {
       urgent: '1',
@@ -113,24 +116,24 @@ export const SearchTerm = () => {
             name="urgent"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel>Przypadek</FormLabel>
+                <FormLabel>{t('form.urgent.label')}</FormLabel>
                 <FormControl>
                   <RadioGroup onValueChange={field.onChange} defaultValue="1" className="flex flex-col space-y-1">
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
                         <RadioGroupItem value="1" />
                       </FormControl>
-                      <FormLabel className="font-normal">stabilny</FormLabel>
+                      <FormLabel className="font-normal">{t('form.urgent.stable')}</FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
                         <RadioGroupItem value="2" />
                       </FormControl>
-                      <FormLabel className="font-normal">pilny</FormLabel>
+                      <FormLabel className="font-normal">{t('form.urgent.urgent')}</FormLabel>
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
-                <FormMessage />
+                <FormDescription>{t('form.urgent.info')}</FormDescription>
               </FormItem>
             )}
           />
@@ -143,8 +146,8 @@ export const SearchTerm = () => {
                   <Checkbox checked={field.value} defaultValue={0} onCheckedChange={field.onChange} />
                 </FormControl>
                 <div className="space-y-1 leading-none">
-                  <FormLabel>świadczenia udzielane dzieciom</FormLabel>
-                  <FormDescription>Zaznacz jeśli szukasz świadczenia dla dziecka</FormDescription>
+                  <FormLabel>{t('form.benefitForChildren.label')}</FormLabel>
+                  <FormDescription>{t('form.benefitForChildren.info')}</FormDescription>
                 </div>
               </FormItem>
             )}
@@ -154,11 +157,11 @@ export const SearchTerm = () => {
             name="province"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Województwo</FormLabel>
+                <FormLabel>{t('form.province.label')}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Wybierz województwo" />
+                      <SelectValue placeholder={t('form.province.select')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -169,7 +172,7 @@ export const SearchTerm = () => {
                     ))}
                   </SelectContent>
                 </Select>
-                <FormDescription>Wybierz województwo.</FormDescription>
+                <FormDescription>{t('form.province.info')}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -180,11 +183,11 @@ export const SearchTerm = () => {
               name="benefit"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Usługa</FormLabel>
+                  <FormLabel>{t('form.benefit.label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Wybierz usługę" {...field} />
+                    <Input placeholder={t('form.benefit.select')} {...field} />
                   </FormControl>
-                  <FormDescription>Wybierz usługę.</FormDescription>
+                  <FormDescription>{t('form.benefit.info')}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -213,11 +216,11 @@ export const SearchTerm = () => {
               name="localities"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Miasto</FormLabel>
+                  <FormLabel>{t('form.city.label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Wybierz miasto" {...field} />
+                    <Input placeholder={t('form.city.select')} {...field} />
                   </FormControl>
-                  <FormDescription>Wybierz miasto.</FormDescription>
+                  <FormDescription>{t('form.city.info')}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -240,14 +243,14 @@ export const SearchTerm = () => {
             </div>
           </div>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{t('form.submit')}</Button>
         </form>
       </Form>
 
       {isQueueListLoading && <p>Loading...</p>}
       {isQueueListError && <p>Error</p>}
 
-      {QueueList?.data && QueueList.data.length === 0 && <p>Nie znaleziono wyników</p>}
+      {QueueList?.data && QueueList.data.length === 0 && <p>{t('form.noResults')}</p>}
       {QueueList?.data && QueueList.data.length > 0 && (
         <ul>
           {QueueList.data.map((item: QueueData) => (

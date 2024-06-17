@@ -7,7 +7,6 @@ const Home = async ({ params: { lng } }: lngProps) => {
 
   return (
     <div className="my-12 flex-1">
-      <h1 className="mb-4 text-xl font-semibold">{t('appName')}</h1>
       <SearchTerm />
     </div>
   );

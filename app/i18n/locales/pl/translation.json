@@ -3,5 +3,36 @@
 
   "footer": {
     "copyright": "Copyright Ⓒ {{year}} makaDev Patryk Makarewicz, ver. 1.0"
+  },
+
+  "form": {
+    "submit": "Szukaj",
+    "noResults": "Nie znaleziono wyników",
+
+    "urgent": {
+      "label": "Przypadek",
+      "stable": "stabilny",
+      "urgent": "pilny",
+      "info": "Zaznacz „pilny”, jeśli masz na skierowaniu adnotację „pilne”."
+    },
+    "benefitForChildren": {
+      "label": "Świadczenia dla dzieci",
+      "info": "Zaznacz jeśli szukasz świadczenia dla dziecka."
+    },
+    "province": {
+      "label": "Województwo",
+      "select": "Wybierz",
+      "info": "Wybierz województwo w którym szukasz usługi."
+    },
+    "benefit": {
+      "label": "Usługa",
+      "select": "Wpisz",
+      "info": "Wybierz usługę którą szukasz."
+    },
+    "city": {
+      "label": "Miasto",
+      "select": "Wpisz",
+      "info": "Wybierz miasto w którym szukasz usługi."
+    }
   }
 }
