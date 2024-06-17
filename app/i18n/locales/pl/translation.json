@@ -13,26 +13,26 @@
       "label": "Przypadek",
       "stable": "stabilny",
       "urgent": "pilny",
-      "info": "Zaznacz „pilny”, jeśli masz na skierowaniu adnotację „pilne”."
+      "info": "Zaznacz „pilny”, jeśli masz na skierowaniu adnotację „pilne”"
     },
     "benefitForChildren": {
       "label": "Świadczenia dla dzieci",
-      "info": "Zaznacz jeśli szukasz świadczenia dla dziecka."
+      "info": "Zaznacz jeśli szukasz świadczenia dla dziecka"
     },
     "province": {
       "label": "Województwo",
       "select": "Wybierz",
-      "info": "Wybierz województwo w którym szukasz usługi."
+      "info": "Wybierz województwo w którym szukasz usługi"
     },
     "benefit": {
       "label": "Usługa",
       "select": "Wpisz",
-      "info": "Wybierz usługę którą szukasz."
+      "info": "Wybierz usługę którą szukasz"
     },
     "city": {
       "label": "Miasto",
       "select": "Wpisz",
-      "info": "Wybierz miasto w którym szukasz usługi."
+      "info": "Wybierz miasto w którym szukasz usługi"
     }
   }
 }

@@ -97,73 +97,51 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="urgent"
-          render={({ field }) => (
-            <FormItem className="space-y-3 rounded-md border p-4 shadow">
-              <FormLabel>{t('form.urgent.label')}</FormLabel>
-              <FormControl>
-                <RadioGroup onValueChange={field.onChange} defaultValue="1" className="flex flex-col space-y-1">
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="1" />
-                    </FormControl>
-                    <FormLabel className="font-normal">{t('form.urgent.stable')}</FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="2" />
-                    </FormControl>
-                    <FormLabel className="font-normal">{t('form.urgent.urgent')}</FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormDescription>{t('form.urgent.info')}</FormDescription>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="benefitForChildren"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
-              <FormControl>
-                <Checkbox checked={field.value} defaultValue={0} onCheckedChange={field.onChange} />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                <FormLabel>{t('form.benefitForChildren.label')}</FormLabel>
-                <FormDescription>{t('form.benefitForChildren.info')}</FormDescription>
-              </div>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="province"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('form.province.label')}</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="mb-4 flex w-full items-start gap-2">
+          <FormField
+            control={form.control}
+            name="urgent"
+            render={({ field }) => (
+              <FormItem className="space-y-3 rounded-md border p-4 shadow">
+                <FormLabel>{t('form.urgent.label')}</FormLabel>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder={t('form.province.select')} />
-                  </SelectTrigger>
+                  <RadioGroup onValueChange={field.onChange} defaultValue="1" className="flex flex-col space-y-1">
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="1" />
+                      </FormControl>
+                      <FormLabel className="font-normal">{t('form.urgent.stable')}</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="2" />
+                      </FormControl>
+                      <FormLabel className="font-normal">{t('form.urgent.urgent')}</FormLabel>
+                    </FormItem>
+                  </RadioGroup>
                 </FormControl>
-                <SelectContent>
-                  {provinces.map((province) => (
-                    <SelectItem value={province.value} key={province.value}>
-                      {province.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormDescription>{t('form.province.info')}</FormDescription>
-            </FormItem>
-          )}
-        />
-        <div>
+                <FormDescription>{t('form.urgent.info')}</FormDescription>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="benefitForChildren"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                <FormControl>
+                  <Checkbox checked={field.value} defaultValue={0} onCheckedChange={field.onChange} />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>{t('form.benefitForChildren.label')}</FormLabel>
+                  <FormDescription>{t('form.benefitForChildren.info')}</FormDescription>
+                </div>
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="mb-4">
           <FormField
             control={form.control}
             name="benefit"
@@ -195,35 +173,61 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
           </div>
         </div>
 
-        <div>
+        <div className="mb-4 flex w-full gap-2">
           <FormField
             control={form.control}
-            name="localities"
+            name="province"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('form.city.label')}</FormLabel>
-                <FormControl>
-                  <Input placeholder={t('form.city.select')} {...field} />
-                </FormControl>
-                <FormDescription>{t('form.city.info')}</FormDescription>
+              <FormItem className="w-full">
+                <FormLabel>{t('form.province.label')}</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder={t('form.province.select')} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {provinces.map((province) => (
+                      <SelectItem value={province.value} key={province.value}>
+                        {province.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormDescription>{t('form.province.info')}</FormDescription>
               </FormItem>
             )}
           />
-          <div ref={localitiesDictionaryRef}>
-            <ul>
-              {isLocalitiesDictionarySuggestionsVisible &&
-                localitesDictionary.map((localitiesSuggestion) => (
-                  <li
-                    key={localitiesSuggestion.value}
-                    onClick={() => {
-                      form.setValue('localities', localitiesSuggestion.value);
-                      setIsLocalitiesDictionarySuggestionsVisible(false);
-                      setIsSuggestionClicked(true);
-                    }}>
-                    {localitiesSuggestion.value}
-                  </li>
-                ))}
-            </ul>
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="localities"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>{t('form.city.label')}</FormLabel>
+                  <FormControl>
+                    <Input placeholder={t('form.city.select')} {...field} />
+                  </FormControl>
+                  <FormDescription>{t('form.city.info')}</FormDescription>
+                </FormItem>
+              )}
+            />
+            <div ref={localitiesDictionaryRef}>
+              <ul>
+                {isLocalitiesDictionarySuggestionsVisible &&
+                  localitesDictionary.map((localitiesSuggestion) => (
+                    <li
+                      key={localitiesSuggestion.value}
+                      onClick={() => {
+                        form.setValue('localities', localitiesSuggestion.value);
+                        setIsLocalitiesDictionarySuggestionsVisible(false);
+                        setIsSuggestionClicked(true);
+                      }}>
+                      {localitiesSuggestion.value}
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         </div>
 
