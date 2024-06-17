@@ -1,5 +1,5 @@
 import { lngProps } from '@/api/global.model';
-import { SearchTerm } from '@/components/SearchTerm';
+import { Queue } from '@/components';
 import { useTranslation } from '@/i18n';
 
 const Home = async ({ params: { lng } }: lngProps) => {
@@ -7,7 +7,7 @@ const Home = async ({ params: { lng } }: lngProps) => {
 
   return (
     <div className="my-12 flex-1">
-      <SearchTerm />
+      <Queue />
     </div>
   );
 };
