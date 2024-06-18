@@ -1,16 +1,21 @@
-import { TypographyH2 } from '@/components/Typography';
+import { TypographyH2, TypographyH3, TypographyP, Divider } from '@/components';
 import { useTranslation } from '@/i18n';
 
 export const Info = async ({ lng }: { lng: string }) => {
   const { t } = await useTranslation(lng);
 
   return (
-    <div className="my-5">
+    <div className="mt-20">
+      <Divider />
+      <TypographyH2>{t('info.queue')}</TypographyH2>
+      <TypographyP>{t('info.queueContent')}</TypographyP>
+      <Divider />
       <TypographyH2>{t('info.data')}</TypographyH2>
-      <p>{t('info.content')}</p>
-      <h3>
+      <TypographyP>{t('info.content')}</TypographyP>
+      <Divider />
+      <TypographyH3>
         {t('info.source')} {t('info.nfz')}
-      </h3>
+      </TypographyH3>
     </div>
   );
 };

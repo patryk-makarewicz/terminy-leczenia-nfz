@@ -37,6 +37,8 @@
   },
 
   "info": {
+    "queue": "Terminy leczenia",
+    "queueContent": "Dane, które publikujemy, są przekazywane przez szpitale i przychodnie, pracownie tomografii komputerowej i rezonansu magnetycznego (blisko 14 tys. placówek medycznych), które udzielają świadczeń w ramach umowy z Narodowym Funduszem Zdrowia.",
     "data": "Źródło danych",
     "content": "Placówki medyczne przekazują Informacje o terminach leczenia bezpośrednio do NFZ. Szpitale i poradnie mają obowiązek przekazywać oddziałom wojewódzkim NFZ co tydzień informację o pierwszym wolnym terminie (z wyjątkiem świadczenia dla pacjentów objętych diagnostyką lub leczeniem onkologicznym), a co miesiąc informacje o prowadzonych przez nie listach osób oczekujących na leczenie (z wyjątkiem świadczenia dla pacjentów objętych diagnostyką lub leczeniem onkologicznym).",
     "source": "Za informację odpowiada:",
