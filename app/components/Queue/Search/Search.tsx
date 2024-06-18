@@ -103,7 +103,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             control={form.control}
             name="urgent"
             render={({ field }) => (
-              <FormItem className="rounded-md border p-4 shadow">
+              <FormItem className="rounded-md border p-4">
                 <div className="flex items-center gap-3">
                   <FormLabel>{t('form.urgent.label')}</FormLabel>
                   <FormControl>
@@ -131,7 +131,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             control={form.control}
             name="benefitForChildren"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                 <FormControl>
                   <Checkbox checked={field.value} defaultValue={0} onCheckedChange={field.onChange} />
                 </FormControl>
@@ -143,7 +143,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             )}
           />
         </div>
-        <div className="relative mb-4 rounded-md border p-4 shadow">
+        <div className="relative mb-4 rounded-md border p-4">
           <FormField
             control={form.control}
             name="benefit"
@@ -151,7 +151,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
               <FormItem>
                 <FormLabel>{t('form.benefit.label')}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t('form.benefit.select')} {...field} />
+                  <Input placeholder={t('form.benefit.select')} autoComplete="off" {...field} />
                 </FormControl>
                 <FormDescription>{t('form.benefit.info')}</FormDescription>
               </FormItem>
@@ -159,7 +159,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
           />
           <div ref={benefitDictionaryRef}>
             {isBenefitDictionarySuggestionsVisible && (
-              <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-white p-2 shadow">
+              <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-white p-2">
                 {benefitDictionary.map((benefitSuggestion) => (
                   <li
                     key={benefitSuggestion.value}
@@ -181,7 +181,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             control={form.control}
             name="province"
             render={({ field }) => (
-              <FormItem className="w-full rounded-md border p-4 shadow">
+              <FormItem className="w-full rounded-md border p-4">
                 <FormLabel>{t('form.province.label')}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
@@ -201,7 +201,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
               </FormItem>
             )}
           />
-          <div className="relative w-full rounded-md border p-4 shadow">
+          <div className="relative w-full rounded-md border p-4">
             <FormField
               control={form.control}
               name="localities"
@@ -209,7 +209,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
                 <FormItem className="w-full">
                   <FormLabel>{t('form.city.label')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('form.city.select')} {...field} />
+                    <Input placeholder={t('form.city.select')} autoComplete="off" {...field} />
                   </FormControl>
                   <FormDescription>{t('form.city.info')}</FormDescription>
                 </FormItem>
@@ -217,7 +217,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             />
             <div ref={localitiesDictionaryRef}>
               {isLocalitiesDictionarySuggestionsVisible && (
-                <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-white p-2 shadow">
+                <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-white p-2">
                   {localitesDictionary.map((localitiesSuggestion) => (
                     <li
                       key={localitiesSuggestion.value}

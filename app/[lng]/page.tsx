@@ -1,15 +1,11 @@
 import { lngProps } from '@/api/global.model';
-import { Queue } from '@/components';
-import { useTranslation } from '@/i18n';
+import { Info, Queue } from '@/components';
 
-const Home = async ({ params: { lng } }: lngProps) => {
-  const { t } = await useTranslation(lng);
-
-  return (
-    <div className="my-12 flex-1">
-      <Queue />
-    </div>
-  );
-};
+const Home = async ({ params: { lng } }: lngProps) => (
+  <div className="my-12 flex-1">
+    <Queue />
+    <Info lng={lng} />
+  </div>
+);
 
 export default Home;

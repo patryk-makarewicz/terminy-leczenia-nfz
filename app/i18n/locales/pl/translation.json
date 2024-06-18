@@ -34,5 +34,12 @@
       "select": "Wpisz nazwę miasta",
       "info": "Wybierz miasto w którym szukasz świadczenia"
     }
+  },
+
+  "info": {
+    "data": "Źródło danych",
+    "content": "Placówki medyczne przekazują Informacje o terminach leczenia bezpośrednio do NFZ. Szpitale i poradnie mają obowiązek przekazywać oddziałom wojewódzkim NFZ co tydzień informację o pierwszym wolnym terminie (z wyjątkiem świadczenia dla pacjentów objętych diagnostyką lub leczeniem onkologicznym), a co miesiąc informacje o prowadzonych przez nie listach osób oczekujących na leczenie (z wyjątkiem świadczenia dla pacjentów objętych diagnostyką lub leczeniem onkologicznym).",
+    "source": "Za informację odpowiada:",
+    "nfz": "Narodowy Fundusz Zdrowia"
   }
 }
