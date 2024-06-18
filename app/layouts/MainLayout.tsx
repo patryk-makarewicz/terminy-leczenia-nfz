@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Lng } from '@/api/global.model';
-import { Header, Footer, TypographyH1 } from '@/components';
+import { Header, Footer } from '@/components';
 import { useTranslation } from '@/i18n';
 
 import Logo from '../assets/makaDev.png';
@@ -31,7 +31,7 @@ const MainLayout = async ({ children, lng }: MainLayoutProps) => {
             />
           </Link>
         }
-        navigation={<TypographyH1>{t('appName')}</TypographyH1>}
+        navigation={<h1 className="text-2xl font-bold md:text-3xl">{t('appName')}</h1>}
       />
       <main className="m-auto mt-[60px] flex max-w-screen-xl flex-1 justify-center px-2.5">{children}</main>
       <Footer copyright="Copyright Ⓒ" version="makaDev Patryk Makarewicz, ver. 1.0" />

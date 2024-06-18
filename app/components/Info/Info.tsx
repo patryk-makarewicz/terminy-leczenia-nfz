@@ -7,15 +7,22 @@ export const Info = async ({ lng }: { lng: string }) => {
   return (
     <div className="mt-20">
       <Divider />
-      <TypographyH2>{t('info.queue')}</TypographyH2>
-      <TypographyP>{t('info.queueContent')}</TypographyP>
+      <div className="flex flex-col gap-2 md:flex-row">
+        <div className="w-full rounded-md border p-4">
+          <TypographyH2>{t('info.queue')}</TypographyH2>
+          <TypographyP>{t('info.queueContent')}</TypographyP>
+        </div>
+        <div className="w-full rounded-md border p-4">
+          <TypographyH2>{t('info.data')}</TypographyH2>
+          <TypographyP>{t('info.content')}</TypographyP>
+        </div>
+      </div>
       <Divider />
-      <TypographyH2>{t('info.data')}</TypographyH2>
-      <TypographyP>{t('info.content')}</TypographyP>
-      <Divider />
-      <TypographyH3>
-        {t('info.source')} {t('info.nfz')}
-      </TypographyH3>
+      <div className="text-right">
+        <TypographyH3>
+          {t('info.source')} {t('info.nfz')}
+        </TypographyH3>
+      </div>
     </div>
   );
 };

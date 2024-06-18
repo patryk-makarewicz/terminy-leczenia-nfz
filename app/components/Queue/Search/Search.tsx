@@ -98,12 +98,12 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
-        <div className="mb-4 flex w-full items-start gap-2">
+        <div className="mb-4 flex w-full flex-col items-start gap-2 md:flex-row">
           <FormField
             control={form.control}
             name="urgent"
             render={({ field }) => (
-              <FormItem className="rounded-md border p-4">
+              <FormItem className="w-full rounded-md border p-4">
                 <div className="flex items-center gap-3">
                   <FormLabel>{t('form.urgent.label')}</FormLabel>
                   <FormControl>
@@ -131,7 +131,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             control={form.control}
             name="benefitForChildren"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex w-full flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                 <FormControl>
                   <Checkbox checked={field.value} defaultValue={0} onCheckedChange={field.onChange} />
                 </FormControl>
@@ -176,7 +176,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             )}
           </div>
         </div>
-        <div className="mb-4 flex w-full gap-2">
+        <div className="mb-4 flex w-full flex-col gap-2 md:flex-row">
           <FormField
             control={form.control}
             name="province"
@@ -235,7 +235,9 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             </div>
           </div>
         </div>
-        <Button type="submit">{t('form.submit')}</Button>
+        <Button type="submit" className="ml-auto mr-0 w-fit">
+          {t('form.submit')}
+        </Button>
       </form>
     </Form>
   );
