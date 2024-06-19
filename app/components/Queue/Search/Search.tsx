@@ -1,6 +1,6 @@
 'use client';
 
-import { Search as SearchIcon } from 'lucide-react';
+import { Search as SearchIcon, LoaderCircle } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
@@ -24,9 +24,10 @@ import { useTranslation } from '@/i18n/client';
 
 type SearchProps = {
   onHandleSearch: (data: SearchParams) => void;
+  isQueueListLoading: boolean;
 };
 
-export const Search = ({ onHandleSearch }: SearchProps) => {
+export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
   const { t } = useTranslation();
 
   const form = useForm<SearchParams>({
@@ -236,8 +237,13 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
             </div>
           </div>
         </div>
-        <Button type="submit" className="ml-auto mr-0 w-fit">
-          <SearchIcon strokeWidth={2} size={18} className="mr-2" /> {t('form.submit')}
+        <Button type="submit" disabled={isQueueListLoading} className="ml-auto mr-0 w-fit">
+          {isQueueListLoading ? (
+            <LoaderCircle size={18} className="mr-2 animate-spin" />
+          ) : (
+            <SearchIcon size={18} className="mr-2" />
+          )}
+          {t('form.submit')}
         </Button>
       </form>
     </Form>

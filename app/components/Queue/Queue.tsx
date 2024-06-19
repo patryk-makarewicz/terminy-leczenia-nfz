@@ -23,8 +23,8 @@ export const Queue = () => {
 
   return (
     <>
-      <Search onHandleSearch={onHandleSearch} />
-      <Results QueueList={QueueList} isQueueListLoading={isQueueListLoading} isQueueListError={isQueueListError} />
+      <Search onHandleSearch={onHandleSearch} isQueueListLoading={isQueueListLoading} />
+      <Results QueueList={QueueList} isQueueListError={isQueueListError} />
       <div className="mt-5">
         {QueueList?.links.prev && QueueList?.links.next && (
           <>

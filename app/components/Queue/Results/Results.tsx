@@ -7,19 +7,14 @@ import { ResultsItem } from './ResultsItem';
 
 type ResultsProps = {
   QueueList: QueueDTO | undefined;
-  isQueueListLoading: boolean;
   isQueueListError: boolean;
 };
 
-export const Results = ({ QueueList, isQueueListLoading, isQueueListError }: ResultsProps) => {
+export const Results = ({ QueueList, isQueueListError }: ResultsProps) => {
   const { t } = useTranslation();
 
   if (QueueList?.data === undefined) {
     return;
-  }
-
-  if (isQueueListLoading) {
-    return <p>Loading...</p>;
   }
 
   if (isQueueListError) {
