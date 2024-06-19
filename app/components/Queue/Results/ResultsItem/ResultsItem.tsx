@@ -1,7 +1,9 @@
 'use client';
 
+import { Hospital, Phone, MapPin, CircleDot, CalendarDays, Navigation, NavigationOff } from 'lucide-react';
+
 import { QueueData } from '@/api/QueueAPI/Queue.model';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button } from '@/components/ui';
 import { useTranslation } from '@/i18n/client';
 
 type ResultsItemProps = {
@@ -12,44 +14,83 @@ export const ResultsItem = ({ item }: ResultsItemProps) => {
   const { t } = useTranslation();
 
   return (
-    <li className="flex w-full flex-col rounded-md border p-4">
-      <div>{item.attributes.benefit}</div>
-      <div>{item.attributes.provider}</div>
-      <div>
-        {item.attributes.locality}, {item.attributes.address}
-      </div>
-      <div>{item.attributes.phone}</div>
-      <div>
-        pierwszy wolny termin: {item.attributes.dates.date}, stan na: {item.attributes.dates['date-situation-as-at']}
+    <li className="flex w-full flex-col gap-3 rounded-md border p-4 md:flex-row">
+      <div className="flex w-[100%] flex-col gap-2 md:w-2/3">
+        <p className="flex items-center">
+          <CircleDot size={16} color={'hsl(var(--primary))'} className="mr-2" /> {item.attributes.benefit}
+        </p>
+        <p className="flex items-center">
+          <Hospital size={16} color={'hsl(var(--primary))'} className="mr-2" /> {item.attributes.provider}
+        </p>
+        <p className="flex items-center">
+          <MapPin size={16} color={'hsl(var(--primary))'} className="mr-2" />
+          {item.attributes.locality}, {item.attributes.address}
+        </p>
+        <p className="flex items-center font-semibold">
+          <Phone size={16} color={'hsl(var(--primary))'} className="mr-2" /> {item.attributes.phone}
+        </p>
       </div>
 
-      <div>
+      <div className="flex w-[100%] flex-col gap-3 md:w-1/3">
+        <div className="flex items-center">
+          <CalendarDays size={48} color={'hsl(var(--primary))'} className="mr-2" />
+          <div>
+            <p className="font-semibold">{t('components.resultsItem.term')}: </p>
+            <p className="text-xl font-bold text-primary">{item.attributes.dates.date}</p>
+            <p className="text-sm">
+              {t('components.resultsItem.situationAt', { date: item.attributes.dates['date-situation-as-at'] })}
+            </p>
+          </div>
+        </div>
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1">
-            <AccordionTrigger>Szczegóły</AccordionTrigger>
+            <AccordionTrigger>{t('components.resultsItem.additional')}</AccordionTrigger>
             <AccordionContent>
               <>
-                <div>parking: {item.attributes['car-park']}</div>
-                <div>winda: {item.attributes.elevator}</div>
-                <div>rampa: {item.attributes.ramp}</div>
-                <div>toaleta: {item.attributes.toilet}</div>
                 <div>
-                  statystkiki:
-                  <div>liczba oczekujcych: {item.attributes.statistics['provider-data'].awaiting}</div>
                   <div>
-                    średni czas oczekiwania: {item.attributes.statistics['provider-data']['average-period']} dni
+                    {t('components.resultsItem.awaiting')}: {item.attributes.statistics['provider-data'].awaiting}
                   </div>
-                  <div>aktualizacja dancyh: {item.attributes.statistics['provider-data'].update}</div>
+                  <div>
+                    {t('components.resultsItem.averagePeriod', {
+                      days: item.attributes.statistics['provider-data']['average-period']
+                    })}
+                  </div>
+                  <div>
+                    {t('components.resultsItem.update')}: {item.attributes.statistics['provider-data'].update}
+                  </div>
                 </div>
                 <div>
-                  mapa:
-                  <div>latitude: {item.attributes.latitude}</div>
-                  <div>longitude: {item.attributes.longitude}</div>
+                  <div>
+                    {t('components.resultsItem.parking')}: {item.attributes['car-park']}
+                  </div>
+                  <div>
+                    {t('components.resultsItem.elevator')}: {item.attributes.elevator}
+                  </div>
+                  <div>
+                    {t('components.resultsItem.ramp')}: {item.attributes.ramp}
+                  </div>
+                  <div>
+                    {t('components.resultsItem.toilet')}: {item.attributes.toilet}
+                  </div>
                 </div>
               </>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+        <div>
+          <Button
+            variant="outline"
+            disabled={item.attributes.latitude === null && item.attributes.longitude === null}
+            className="flex items-center">
+            {item.attributes.latitude !== null && item.attributes.longitude !== null ? (
+              <Navigation size={16} className="mr-2" />
+            ) : (
+              <NavigationOff size={16} className="mr-2" />
+            )}
+            {t('components.resultsItem.map')}
+          </Button>
+        </div>
       </div>
     </li>
   );

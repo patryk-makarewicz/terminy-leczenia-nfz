@@ -1,5 +1,6 @@
 'use client';
 
+import { Search as SearchIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
@@ -236,7 +237,7 @@ export const Search = ({ onHandleSearch }: SearchProps) => {
           </div>
         </div>
         <Button type="submit" className="ml-auto mr-0 w-fit">
-          {t('form.submit')}
+          <SearchIcon strokeWidth={2} size={18} className="mr-2" /> {t('form.submit')}
         </Button>
       </form>
     </Form>

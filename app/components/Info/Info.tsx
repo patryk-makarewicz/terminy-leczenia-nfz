@@ -9,18 +9,18 @@ export const Info = async ({ lng }: { lng: string }) => {
       <Divider />
       <div className="flex flex-col gap-2 md:flex-row">
         <div className="w-full rounded-md border p-4">
-          <TypographyH2>{t('info.queue')}</TypographyH2>
-          <TypographyP>{t('info.queueContent')}</TypographyP>
+          <TypographyH2>{t('components.info.queue')}</TypographyH2>
+          <TypographyP>{t('components.info.queueContent')}</TypographyP>
         </div>
         <div className="w-full rounded-md border p-4">
-          <TypographyH2>{t('info.data')}</TypographyH2>
-          <TypographyP>{t('info.content')}</TypographyP>
+          <TypographyH2>{t('components.info.data')}</TypographyH2>
+          <TypographyP>{t('components.info.content')}</TypographyP>
         </div>
       </div>
       <Divider />
       <div className="text-right">
         <TypographyH3>
-          {t('info.source')} {t('info.nfz')}
+          {t('components.info.source')} {t('components.info.nfz')}
         </TypographyH3>
       </div>
     </div>
