@@ -1,0 +1,1 @@
+export { ResultsItem } from './ResultsItem';

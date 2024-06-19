@@ -28,6 +28,7 @@ export const Queue = () => {
       <div className="mt-5">
         {QueueList?.links.prev && QueueList?.links.next && (
           <>
+            TODO: pagination
             <Button disabled={QueueList?.links.prev === null}>Poprzednia</Button>
             <Button disabled={QueueList?.links.next === null}>Następna</Button>
           </>
