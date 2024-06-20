@@ -13,6 +13,7 @@
   "form": {
     "submit": "Szukaj",
     "noResults": "Nie znaleziono wyników",
+    "error": "Wystapił problem z pobraniem danych",
 
     "urgent": {
       "label": "Przypadek",

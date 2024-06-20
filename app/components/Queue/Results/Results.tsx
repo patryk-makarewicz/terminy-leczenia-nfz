@@ -13,16 +13,20 @@ type ResultsProps = {
 export const Results = ({ QueueList, isQueueListError }: ResultsProps) => {
   const { t } = useTranslation();
 
+  const renderMessage = (message: string) => (
+    <p className="mb-12 rounded-sm bg-primary px-10 py-5 text-center text-lg font-semibold text-white">{message}</p>
+  );
+
   if (QueueList?.data === undefined) {
     return;
   }
 
   if (isQueueListError) {
-    return <p>Error</p>;
+    return renderMessage(t('form.error'));
   }
 
   if (QueueList.data.length === 0) {
-    return <p>{t('form.noResults')}</p>;
+    return renderMessage(t('form.noResults'));
   }
 
   return (
