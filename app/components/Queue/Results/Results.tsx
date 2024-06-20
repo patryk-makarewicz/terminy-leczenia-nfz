@@ -1,16 +1,18 @@
 'use client';
 
 import { QueueDTO, QueueData } from '@/api/QueueAPI/Queue.model';
+import { Spinner } from '@/components/Spinner';
 import { useTranslation } from '@/i18n/client';
 
 import { ResultsItem } from './ResultsItem';
 
 type ResultsProps = {
   QueueList: QueueDTO | undefined;
+  isQueueListLoading: boolean;
   isQueueListError: boolean;
 };
 
-export const Results = ({ QueueList, isQueueListError }: ResultsProps) => {
+export const Results = ({ QueueList, isQueueListLoading, isQueueListError }: ResultsProps) => {
   const { t } = useTranslation();
 
   const renderMessage = (message: string) => (
@@ -27,6 +29,14 @@ export const Results = ({ QueueList, isQueueListError }: ResultsProps) => {
 
   if (QueueList.data.length === 0) {
     return renderMessage(t('form.noResults'));
+  }
+
+  if (isQueueListLoading) {
+    return (
+      <div className="mb-12 h-[50px]">
+        <Spinner />
+      </div>
+    );
   }
 
   return (

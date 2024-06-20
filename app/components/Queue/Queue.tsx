@@ -11,6 +11,7 @@ import { Button } from '../ui';
 
 export const Queue = () => {
   const { t } = useTranslation();
+
   const [searchParams, setSearchParams] = useState<SearchParams>({
     page: 1,
     urgent: '1',
@@ -31,12 +32,6 @@ export const Queue = () => {
     setSearchParams(data);
   };
 
-  useEffect(() => {
-    if (searchParams.benefit.length >= 3) {
-      refetchQueueList();
-    }
-  }, [searchParams]);
-
   const onHandleNextPage = () => {
     if (QueueList?.links.next !== null) {
       setSearchParams({ ...searchParams, page: searchParams.page + 1 });
@@ -49,12 +44,18 @@ export const Queue = () => {
     }
   };
 
+  useEffect(() => {
+    if (searchParams.benefit.length >= 3) {
+      refetchQueueList();
+    }
+  }, [searchParams]);
+
   return (
     <>
       <Search onHandleSearch={onHandleSearch} isQueueListLoading={isQueueListLoading} />
-      <Results QueueList={QueueList} isQueueListError={isQueueListError} />
+      <Results QueueList={QueueList} isQueueListLoading={isQueueListLoading} isQueueListError={isQueueListError} />
       <div className="mb-12">
-        {(QueueList?.links.prev !== null || QueueList?.links.next !== null) && (
+        {(QueueList?.links.prev || QueueList?.links.next) && (
           <div className="flex justify-center gap-2">
             <Button disabled={QueueList?.links.prev === null} onClick={onHandlePrevPage}>
               {t('actions.prev')}

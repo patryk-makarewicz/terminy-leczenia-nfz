@@ -50,18 +50,9 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
   const [isLocalitiesDictionarySuggestionsVisible, setIsLocalitiesDictionarySuggestionsVisible] = useState(false);
   const [isSuggestionClicked, setIsSuggestionClicked] = useState(false);
 
-  const {
-    data: benefitDictionary,
-    isLoading: isBenefitDictionaryLoading,
-    isError: isBenefitDictionaryError,
-    refetch: refetchBenefitDictionary
-  } = useGetBenefitDictionary(watchBenefit);
-  const {
-    data: localitesDictionary,
-    isLoading: isLocalitesDictionaryLoading,
-    isError: isLocalitesDictionaryError,
-    refetch: refetchLocalitiesDictionary
-  } = useGetLocalitiesDictionary(watchLocalities);
+  const { data: benefitDictionary, refetch: refetchBenefitDictionary } = useGetBenefitDictionary(watchBenefit);
+  const { data: localitesDictionary, refetch: refetchLocalitiesDictionary } =
+    useGetLocalitiesDictionary(watchLocalities);
 
   useOutsideClick(benefitDictionaryRef, setIsBenefitDictionarySuggestionsVisible);
   useOutsideClick(localitiesDictionaryRef, setIsLocalitiesDictionarySuggestionsVisible);
