@@ -99,13 +99,13 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col rounded-md border">
         <div className="mb-4 flex w-full flex-col items-start gap-2 md:flex-row">
           <FormField
             control={form.control}
             name="urgent"
             render={({ field }) => (
-              <FormItem className="w-full rounded-md border p-4">
+              <FormItem className="w-full p-4">
                 <div className="flex items-center gap-3">
                   <FormLabel>{t('form.urgent.label')}</FormLabel>
                   <FormControl>
@@ -133,7 +133,7 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
             control={form.control}
             name="benefitForChildren"
             render={({ field }) => (
-              <FormItem className="flex w-full flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormItem className="flex w-full flex-row items-start space-x-3 space-y-0 p-4">
                 <FormControl>
                   <Checkbox checked={field.value} defaultValue={0} onCheckedChange={field.onChange} />
                 </FormControl>
@@ -145,7 +145,7 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
             )}
           />
         </div>
-        <div className="relative mb-4 rounded-md border p-4">
+        <div className="relative mb-4 p-4">
           <FormField
             control={form.control}
             name="benefit"
@@ -183,7 +183,7 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
             control={form.control}
             name="province"
             render={({ field }) => (
-              <FormItem className="w-full rounded-md border p-4">
+              <FormItem className="w-full p-4">
                 <FormLabel>{t('form.province.label')}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
@@ -203,7 +203,7 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
               </FormItem>
             )}
           />
-          <div className="relative w-full rounded-md border p-4">
+          <div className="relative w-full p-4">
             <FormField
               control={form.control}
               name="localities"
@@ -237,7 +237,7 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
             </div>
           </div>
         </div>
-        <Button type="submit" disabled={isQueueListLoading} className="ml-auto mr-0 w-fit">
+        <Button type="submit" disabled={isQueueListLoading} className="mb-4 ml-auto mr-4 w-fit">
           {isQueueListLoading ? (
             <LoaderCircle size={18} className="mr-2 animate-spin" />
           ) : (

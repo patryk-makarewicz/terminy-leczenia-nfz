@@ -6,8 +6,7 @@ export const Info = async ({ lng }: { lng: string }) => {
 
   return (
     <div className="mt-20">
-      <Divider />
-      <div className="flex flex-col gap-2 md:flex-row">
+      <div className="mb-4 flex flex-col gap-2 md:flex-row">
         <div className="w-full rounded-md border p-4">
           <TypographyH2>{t('components.info.queue')}</TypographyH2>
           <TypographyP>{t('components.info.queueContent')}</TypographyP>
@@ -17,7 +16,6 @@ export const Info = async ({ lng }: { lng: string }) => {
           <TypographyP>{t('components.info.content')}</TypographyP>
         </div>
       </div>
-      <Divider />
       <div className="text-right">
         <TypographyH3>
           {t('components.info.source')} {t('components.info.nfz')}

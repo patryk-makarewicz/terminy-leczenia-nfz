@@ -22,17 +22,17 @@
     "province": {
       "label": "Województwo",
       "select": "Wybierz województwo",
-      "info": "Wybierz województwo w którym szukasz świadczenia"
+      "info": "Wybierz województwo z listy"
     },
     "benefit": {
       "label": "Świadczenie",
-      "select": "Wpisz nazwę świadczenia",
-      "info": "Wybierz usługę którą szukasz"
+      "select": "Zacznij wpisywać nazwę świadczenia",
+      "info": "Wpisz jakiego świadczenia szukasz"
     },
     "city": {
       "label": "Miasto",
       "select": "Wpisz nazwę miasta",
-      "info": "Wybierz miasto w którym szukasz świadczenia"
+      "info": "Wpisz nazwę miasta w którym szukasz świadczenia"
     }
   },
 
@@ -51,12 +51,12 @@
       "situationAt": "(stan na {{date}})",
       "additional": "Dodatkowe informacje",
       "awaiting": "liczba oczekujcych",
-      "averagePeriod": "sredni czas oczekiwania: {{days}} dni",
+      "averagePeriod": "sredni czas oczekiwania: <bold>{{days}} dni</bold>",
       "update": "aktualizacja dancyh",
-      "parking": "parking",
-      "elevator": "winda",
-      "ramp": "rampa",
-      "toilet": "toaleta",
+      "parking": "Parking",
+      "elevator": "Winda",
+      "ramp": "Podjazd dla wózków osób z niepełnosprawnością",
+      "toilet": "Toaleta dla osób z niepełnosprawnością",
       "map": "Pokaż na mapie"
     }
   }
