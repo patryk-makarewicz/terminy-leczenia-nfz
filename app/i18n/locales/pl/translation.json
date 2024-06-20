@@ -5,6 +5,11 @@
     "copyright": "Copyright Ⓒ {{year}} makaDev Patryk Makarewicz, ver. 1.0"
   },
 
+  "actions": {
+    "next": "Następna strona",
+    "prev": "Poprzednia strona"
+  },
+
   "form": {
     "submit": "Szukaj",
     "noResults": "Nie znaleziono wyników",

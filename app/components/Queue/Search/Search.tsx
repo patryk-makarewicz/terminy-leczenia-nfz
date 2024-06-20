@@ -32,6 +32,7 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
 
   const form = useForm<SearchParams>({
     defaultValues: {
+      page: 1,
       urgent: '1',
       benefitForChildren: false,
       localities: '',
@@ -99,7 +100,7 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col rounded-md border">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mb-12 flex flex-col rounded-md border">
         <div className="mb-4 flex w-full flex-col items-start gap-2 md:flex-row">
           <FormField
             control={form.control}

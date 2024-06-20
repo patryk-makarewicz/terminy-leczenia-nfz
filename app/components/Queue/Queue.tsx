@@ -5,33 +5,64 @@ import { useEffect, useState } from 'react';
 import { SearchParams } from '@/api/QueueAPI/Queue.model';
 import { Results, Search } from '@/components';
 import { useGetQueue } from '@/hooks';
+import { useTranslation } from '@/i18n/client';
 
 import { Button } from '../ui';
 
 export const Queue = () => {
-  const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
+  const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useState<SearchParams>({
+    page: 1,
+    urgent: '1',
+    benefitForChildren: false,
+    localities: '',
+    province: '',
+    benefit: ''
+  });
 
-  const { data: QueueList, isLoading: isQueueListLoading, isError: isQueueListError } = useGetQueue(searchParams);
+  const {
+    data: QueueList,
+    isLoading: isQueueListLoading,
+    isError: isQueueListError,
+    refetch: refetchQueueList
+  } = useGetQueue(searchParams);
 
   const onHandleSearch = (data: SearchParams) => {
     setSearchParams(data);
   };
 
   useEffect(() => {
-    setSearchParams(null);
-  }, [isQueueListLoading]);
+    if (searchParams.benefit.length >= 3) {
+      refetchQueueList();
+    }
+  }, [searchParams]);
+
+  const onHandleNextPage = () => {
+    if (QueueList?.links.next !== null) {
+      setSearchParams({ ...searchParams, page: searchParams.page + 1 });
+    }
+  };
+
+  const onHandlePrevPage = () => {
+    if (QueueList?.links.prev !== null) {
+      setSearchParams({ ...searchParams, page: searchParams.page - 1 });
+    }
+  };
 
   return (
     <>
       <Search onHandleSearch={onHandleSearch} isQueueListLoading={isQueueListLoading} />
       <Results QueueList={QueueList} isQueueListError={isQueueListError} />
-      <div className="mt-5">
-        {QueueList?.links.prev && QueueList?.links.next && (
-          <>
-            TODO: pagination
-            <Button disabled={QueueList?.links.prev === null}>Poprzednia</Button>
-            <Button disabled={QueueList?.links.next === null}>Następna</Button>
-          </>
+      <div className="mb-12">
+        {(QueueList?.links.prev !== null || QueueList?.links.next !== null) && (
+          <div className="flex justify-center gap-2">
+            <Button disabled={QueueList?.links.prev === null} onClick={onHandlePrevPage}>
+              {t('actions.prev')}
+            </Button>
+            <Button disabled={QueueList?.links.next === null} onClick={onHandleNextPage}>
+              {t('actions.next')}
+            </Button>
+          </div>
         )}
       </div>
     </>

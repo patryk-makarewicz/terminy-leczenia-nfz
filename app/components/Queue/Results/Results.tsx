@@ -26,12 +26,10 @@ export const Results = ({ QueueList, isQueueListError }: ResultsProps) => {
   }
 
   return (
-    <div className="mt-12">
-      <ul className="flex flex-col gap-2">
-        {QueueList.data.map((item: QueueData) => (
-          <ResultsItem key={item.id} item={item} />
-        ))}
-      </ul>
-    </div>
+    <ul className="mb-12 flex flex-col gap-2">
+      {QueueList.data.map((item: QueueData) => (
+        <ResultsItem key={item.id} item={item} />
+      ))}
+    </ul>
   );
 };
