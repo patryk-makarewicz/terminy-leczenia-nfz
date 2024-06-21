@@ -1,0 +1,69 @@
+{
+  "appName": "NFZ Treatment Dates",
+
+  "footer": {
+    "copyright": "Copyright Ⓒ {{year}} makaDev Patryk Makarewicz, ver. 1.0"
+  },
+
+  "actions": {
+    "next": "Next page",
+    "prev": "Previous page"
+  },
+
+  "form": {
+    "submit": "Search",
+    "noResults": "No results found",
+    "error": "There was a problem fetching data",
+
+    "urgent": {
+      "label": "Case",
+      "stable": "stable",
+      "urgent": "urgent",
+      "info": "Check 'urgent' if your referral note indicates 'urgent'"
+    },
+    "benefitForChildren": {
+      "label": "Benefits for Children",
+      "info": "Check if you are looking for benefits for a child"
+    },
+    "province": {
+      "label": "Province",
+      "select": "Select province",
+      "info": "Select a province from the list"
+    },
+    "benefit": {
+      "label": "Benefit",
+      "select": "Start typing benefit name",
+      "info": "Enter the name of the benefit you are looking for"
+    },
+    "city": {
+      "label": "City",
+      "select": "Enter city name",
+      "info": "Enter the city name where you are seeking the benefit"
+    }
+  },
+
+  "components": {
+    "info": {
+      "queue": "Treatment dates",
+      "queueContent": "The data we publish is provided by hospitals, clinics, CT and MRI centers (nearly 14,000 medical facilities) that provide services under contract with the National Health Fund (NFZ).",
+      "data": "Data source",
+      "content": "Medical facilities directly provide information about treatment dates to NFZ. Hospitals and clinics are obligated to provide provincial NFZ departments weekly with information on the first available appointment (excluding services for patients undergoing diagnostics or oncological treatment), and monthly with information on waiting lists (excluding services for patients undergoing diagnostics or oncological treatment).",
+      "source": "Information provided by:",
+      "nfz": "National Health Fund (NFZ)"
+    },
+
+    "resultsItem": {
+      "term": "First available appointment",
+      "situationAt": "(as of {{date}})",
+      "additional": "Additional Information",
+      "awaiting": "number of waiting",
+      "averagePeriod": "average waiting time: <bold>{{days}} days</bold>",
+      "update": "Data update",
+      "parking": "Parking",
+      "elevator": "Elevator",
+      "ramp": "Wheelchair ramp",
+      "toilet": "Accessible toilet",
+      "map": "Show on map"
+    }
+  }
+}
