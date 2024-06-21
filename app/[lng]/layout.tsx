@@ -51,16 +51,14 @@ type RootLayoutProps = {
   };
 };
 
-const RootLayout = ({ children, params: { lng } }: RootLayoutProps) => {
-  return (
-    <html lang={lng} dir={dir(lng)}>
-      <body className={cn('bg-background font-sans antialiased', fontSans.variable)}>
-        <ReactQueryProvider>
-          <MainLayout lng={lng}>{children}</MainLayout>
-        </ReactQueryProvider>
-      </body>
-    </html>
-  );
-};
+const RootLayout = ({ children, params: { lng } }: RootLayoutProps) => (
+  <html lang={lng} dir={dir(lng)}>
+    <body className={cn('bg-background font-sans antialiased', fontSans.variable)}>
+      <ReactQueryProvider>
+        <MainLayout lng={lng}>{children}</MainLayout>
+      </ReactQueryProvider>
+    </body>
+  </html>
+);
 
 export default RootLayout;

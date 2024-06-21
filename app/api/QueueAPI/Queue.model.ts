@@ -83,6 +83,7 @@ export type QueueDTO = {
 };
 
 export type SearchParams = {
+  page: number;
   urgent: string;
   province: string;
   benefitForChildren: boolean;
