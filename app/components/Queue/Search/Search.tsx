@@ -153,11 +153,11 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
           />
           <div ref={benefitDictionaryRef}>
             {isBenefitDictionarySuggestionsVisible && (
-              <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-white p-2">
+              <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border p-2 dark:bg-background">
                 {benefitDictionary.map((benefitSuggestion) => (
                   <li
                     key={benefitSuggestion.value}
-                    className="w-full cursor-pointer rounded-md p-1 text-start hover:bg-gray-100"
+                    className="w-full cursor-pointer rounded-md p-1 text-start hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => {
                       form.setValue('benefit', benefitSuggestion.value);
                       setIsBenefitDictionarySuggestionsVisible(false);
@@ -211,11 +211,11 @@ export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
             />
             <div ref={localitiesDictionaryRef}>
               {isLocalitiesDictionarySuggestionsVisible && (
-                <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-white p-2">
+                <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border p-2 dark:bg-background">
                   {localitesDictionary.map((localitiesSuggestion) => (
                     <li
                       key={localitiesSuggestion.value}
-                      className="w-full cursor-pointer rounded-md p-1 text-start hover:bg-gray-100"
+                      className="w-full cursor-pointer rounded-md p-1 text-start hover:bg-gray-100 dark:hover:bg-gray-800"
                       onClick={() => {
                         form.setValue('localities', localitiesSuggestion.value);
                         setIsLocalitiesDictionarySuggestionsVisible(false);

@@ -8,3 +8,5 @@ export * from './Queue/Results';
 export * from './Info';
 export * from './Typography';
 export * from './Divider';
+export * from './LngSwitch';
+export * from './ColorModeToggle';
