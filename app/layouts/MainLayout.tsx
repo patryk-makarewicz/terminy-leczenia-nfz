@@ -35,7 +35,7 @@ const MainLayout = async ({ children, lng }: MainLayoutProps) => {
         rightElementSecond={<LngSwitch lng={lng} />}
       />
       <main className="m-auto flex max-w-screen-xl flex-1 justify-center px-2.5">{children}</main>
-      <Footer copyright="Copyright Ⓒ" version="makaDev Patryk Makarewicz, ver. 1.0" />
+      <Footer lng={lng} />
     </div>
   );
 };

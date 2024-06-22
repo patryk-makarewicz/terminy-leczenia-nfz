@@ -1,9 +1,12 @@
+import { Lng } from '@/api/global.model';
+import { useTranslation } from '@/i18n';
+
 type FooterProps = {
-  copyright: string;
-  version?: string;
+  lng: Lng;
 };
 
-export const Footer = ({ copyright, version }: FooterProps) => {
+export const Footer = async ({ lng }: FooterProps) => {
+  const { t } = await useTranslation(lng);
   const date = new Date();
   const year = date.getFullYear();
 
@@ -11,7 +14,7 @@ export const Footer = ({ copyright, version }: FooterProps) => {
     <footer className="w-full bg-primary text-white">
       <div className="mx-auto flex items-center justify-center px-2.5 py-3">
         <p className="text-center text-xs" data-testid="copyright">
-          {copyright} {year} {version}
+          {t('footer.copyright', { year })}
         </p>
       </div>
     </footer>

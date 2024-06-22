@@ -9,3 +9,7 @@ const Home = async ({ params: { lng } }: lngProps) => (
 );
 
 export default Home;
+
+// TODO: fix header border
+// TODO: add cookies
+// TODO: add tests
