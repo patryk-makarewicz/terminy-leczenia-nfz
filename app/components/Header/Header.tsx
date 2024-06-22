@@ -6,7 +6,7 @@ type HeaderProps = {
 };
 
 export const Header = ({ icon, navigation, rightElementFirst, rightElementSecond }: HeaderProps) => (
-  <header className="w-full border border-b">
+  <header className="w-full border-b">
     <div className="mx-auto flex max-w-screen-xl items-center justify-between p-2.5">
       <div className="flex items-center">
         <div className="mr-5 h-[40px] w-[40px] overflow-hidden">{icon}</div>
