@@ -17,11 +17,11 @@ This is the website to search for the nearest NFZ treatment dates.
 ✔ Tailwind<br />
 ✔ shadcn/ui<br />
 
-<!-- ## Link to website
+## Link to website
 
 To watch click [here]
 
-[here]: https://cart-patryk-makarewicz.vercel.app -->
+[here]: https://terminy-leczenia-nfz.vercel.app
 
 ## Getting Started
 

@@ -9,3 +9,7 @@ const Home = async ({ params: { lng } }: lngProps) => (
 );
 
 export default Home;
+
+// TODO: add lng switch
+// TODO: add cookies
+// TODO: add tests
