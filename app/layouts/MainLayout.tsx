@@ -30,7 +30,7 @@ const MainLayout = async ({ children, lng }: MainLayoutProps) => {
             />
           </Link>
         }
-        navigation={<h1 className="text-2xl font-bold md:text-3xl">{t('appName')}</h1>}
+        navigation={<h1 className="text-xl font-bold md:text-3xl">{t('appName')}</h1>}
         rightElementFirst={<ColorModeToggle />}
         rightElementSecond={<LngSwitch lng={lng} />}
       />
