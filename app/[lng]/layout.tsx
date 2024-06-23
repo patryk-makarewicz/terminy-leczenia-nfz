@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: 'Terminy leczenia NFZ',
   description: 'Strona do wyszukiwania najblizszych terminów leczenia NFZ.',
   category: 'website',
-  keywords: ['terminy leczenia', 'nfz', 'kolejki nfz'],
+  keywords: ['terminy leczenia', 'nfz', 'kolejki nfz', 'pacjent', 'wolne terminy', 'najbliższy termin leczenia nfz'],
   authors: [
     { name: 'Patryk Makarewicz' },
     {
@@ -31,10 +31,10 @@ export const metadata: Metadata = {
     title: 'Terminy leczenia NFZ',
     description: 'Strona do wyszukiwania najblizszych terminów leczenia NFZ.',
     images: ['/cover.png'],
-    url: '',
+    url: 'https://terminy-leczenia-nfz.vercel.app/',
     siteName: 'Terminy leczenia NFZ'
   },
-  metadataBase: new URL('https://acme.com'),
+  metadataBase: new URL('https://terminy-leczenia-nfz.vercel.app/'),
   icons: {
     icon: '/favicon.ico'
   }

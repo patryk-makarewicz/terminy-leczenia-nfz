@@ -10,6 +10,7 @@ const Home = async ({ params: { lng } }: lngProps) => (
 
 export default Home;
 
+// TODO: remove react-query
 // TODO: add lng switch
 // TODO: add cookies
 // TODO: add tests
