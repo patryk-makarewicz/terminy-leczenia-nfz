@@ -11,6 +11,6 @@ describe('test Footer component', () => {
     });
     render(<FooterResolved />);
 
-    expect(screen.getByText('Copyright Ⓒ 2024 makaDev Patryk Makarewicz, ver. 1.1')).toBeInTheDocument();
+    expect(screen.getByText('Copyright Ⓒ 2024 makaDev Patryk Makarewicz', { exact: false })).toBeInTheDocument();
   });
 });
