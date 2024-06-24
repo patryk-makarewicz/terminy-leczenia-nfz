@@ -11,7 +11,6 @@ import { getOptions, languages } from './settings';
 
 const runsOnServerSide = typeof window === 'undefined';
 
-//
 i18next
   .use(initReactI18next)
   .use(LanguageDetector)
@@ -32,19 +31,18 @@ export function useTranslation(lng, ns, options) {
   if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
     i18n.changeLanguage(lng);
   } else {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     useEffect(() => {
       if (activeLng === i18n.resolvedLanguage) return;
       setActiveLng(i18n.resolvedLanguage);
     }, [activeLng, i18n.resolvedLanguage]);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     useEffect(() => {
       if (!lng || i18n.resolvedLanguage === lng) return;
       i18n.changeLanguage(lng);
     }, [lng, i18n]);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     useEffect(() => {
       if (cookies.i18next === lng) return;
       setCookie('i18next', lng, { path: '/' });

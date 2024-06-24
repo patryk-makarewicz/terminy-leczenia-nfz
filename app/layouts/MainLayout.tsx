@@ -13,6 +13,7 @@ type MainLayoutProps = {
 
 const MainLayout = async ({ children, lng }: MainLayoutProps) => {
   const { t } = await useTranslation(lng);
+  const version = '2.0';
 
   return (
     <div className="flex h-full flex-col">
@@ -35,7 +36,7 @@ const MainLayout = async ({ children, lng }: MainLayoutProps) => {
         rightElementSecond={<LngSwitch lng={lng} />}
       />
       <main className="m-auto flex max-w-screen-xl flex-1 justify-center px-2.5">{children}</main>
-      <Footer lng={lng} />
+      <Footer lng={lng} version={version} />
     </div>
   );
 };

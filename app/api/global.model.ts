@@ -1,8 +1,9 @@
 export enum Lng {
-  PL = 'pl'
+  PL = 'pl',
+  EN = 'en'
 }
 export type lngProps = {
   params: {
-    lng: Lng.PL;
+    lng: Lng;
   };
 };

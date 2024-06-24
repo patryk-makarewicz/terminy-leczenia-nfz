@@ -19,15 +19,17 @@ import {
 import { Trans } from 'react-i18next';
 
 import { QueueData } from '@/api/QueueAPI/Queue.model';
+import { Lng } from '@/api/global.model';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, Button } from '@/components/ui';
 import { useTranslation } from '@/i18n/client';
 
 type ResultsItemProps = {
+  lng: Lng;
   item: QueueData;
 };
 
-export const ResultsItem = ({ item }: ResultsItemProps) => {
-  const { t } = useTranslation();
+export const ResultsItem = ({ lng, item }: ResultsItemProps) => {
+  const { t } = useTranslation(lng);
 
   const onOpenMap = (latitude: number | null, longitude: number | null) => {
     if (!latitude || !longitude) {
