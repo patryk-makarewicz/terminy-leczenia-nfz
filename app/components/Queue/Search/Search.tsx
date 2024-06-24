@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { provinces } from '@/api/DictionaryAPI/Dictionary.api';
 import { SearchParams } from '@/api/QueueAPI/Queue.model';
+import { Lng } from '@/api/global.model';
 import {
   Button,
   RadioGroup,
@@ -23,12 +24,13 @@ import { useDebounce, useGetBenefitDictionary, useGetLocalitiesDictionary, useOu
 import { useTranslation } from '@/i18n/client';
 
 type SearchProps = {
+  lng: Lng;
   onHandleSearch: (data: SearchParams) => void;
   isQueueListLoading: boolean;
 };
 
-export const Search = ({ onHandleSearch, isQueueListLoading }: SearchProps) => {
-  const { t } = useTranslation();
+export const Search = ({ lng, onHandleSearch, isQueueListLoading }: SearchProps) => {
+  const { t } = useTranslation(lng);
 
   const form = useForm<SearchParams>({
     defaultValues: {

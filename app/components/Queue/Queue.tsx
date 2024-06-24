@@ -3,14 +3,15 @@
 import { useEffect, useState } from 'react';
 
 import { SearchParams } from '@/api/QueueAPI/Queue.model';
+import { Lng } from '@/api/global.model';
 import { Results, Search } from '@/components';
 import { useGetQueue } from '@/hooks';
 import { useTranslation } from '@/i18n/client';
 
 import { Button } from '../ui';
 
-export const Queue = () => {
-  const { t } = useTranslation();
+export const Queue = ({ lng }: { lng: Lng }) => {
+  const { t } = useTranslation(lng);
 
   const [searchParams, setSearchParams] = useState<SearchParams>({
     page: 1,
@@ -52,8 +53,13 @@ export const Queue = () => {
 
   return (
     <>
-      <Search onHandleSearch={onHandleSearch} isQueueListLoading={isQueueListLoading} />
-      <Results QueueList={QueueList} isQueueListLoading={isQueueListLoading} isQueueListError={isQueueListError} />
+      <Search lng={lng} onHandleSearch={onHandleSearch} isQueueListLoading={isQueueListLoading} />
+      <Results
+        lng={lng}
+        QueueList={QueueList}
+        isQueueListLoading={isQueueListLoading}
+        isQueueListError={isQueueListError}
+      />
       <div className="mb-12">
         {(QueueList?.links.prev || QueueList?.links.next) && (
           <div className="flex justify-center gap-2">
