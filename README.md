@@ -2,7 +2,7 @@
 
 # General info
 
-This is the website to search for the nearest NFZ treatment dates.
+This website helps you find the nearest available treatment appointments under NFZ, allowing for quick and convenient access to available visits.
 <br />
 
 ## What's inside?
