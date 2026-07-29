@@ -55,6 +55,7 @@
     "resultsItem": {
       "term": "First available appointment",
       "situationAt": "(as of {{date}})",
+      "situationAtNotAvailable": "(no data)",
       "additional": "Additional Information",
       "awaiting": "number of waiting",
       "averagePeriod": "average waiting time: <bold>{{days}} days</bold>",

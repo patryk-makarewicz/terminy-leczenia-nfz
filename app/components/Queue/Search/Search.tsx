@@ -213,7 +213,7 @@ export const Search = ({ lng, onHandleSearch, isQueueListLoading }: SearchProps)
             />
             <div ref={localitiesDictionaryRef}>
               {isLocalitiesDictionarySuggestionsVisible && (
-                <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border p-2 dark:bg-background">
+                <ul className="absolute top-[90px] z-10 flex w-[calc(100%-32px)] flex-col items-start rounded-sm border bg-background p-2 dark:bg-background">
                   {localitesDictionary.map((localitiesSuggestion) => (
                     <li
                       key={localitiesSuggestion.value}

@@ -13,7 +13,7 @@ type MainLayoutProps = {
 
 const MainLayout = async ({ children, lng }: MainLayoutProps) => {
   const { t } = await useTranslation(lng);
-  const version = '2.1';
+  const version = '2.2';
 
   return (
     <div className="flex h-full flex-col">
