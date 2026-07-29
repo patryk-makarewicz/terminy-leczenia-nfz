@@ -55,6 +55,7 @@
     "resultsItem": {
       "term": "Pierwszy wolny termin",
       "situationAt": "(stan na {{date}})",
+      "situationAtNotAvailable": "(brak danych)",
       "additional": "Dodatkowe informacje",
       "awaiting": "liczba oczekujcych",
       "averagePeriod": "sredni czas oczekiwania: <bold>{{days}} dni</bold>",

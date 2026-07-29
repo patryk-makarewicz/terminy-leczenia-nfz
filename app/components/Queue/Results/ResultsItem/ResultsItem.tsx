@@ -63,9 +63,15 @@ export const ResultsItem = ({ lng, item }: ResultsItemProps) => {
             <CalendarDays size={48} color={'hsl(var(--primary))'} className="mr-2" />
             <div>
               <p className="text-lg font-bold">{t('components.resultsItem.term')}: </p>
-              <p className="text-3xl font-bold text-primary">{item.attributes.dates.date}</p>
+              <p className="text-3xl font-bold text-primary">
+                {item.attributes.dates ? item.attributes.dates.date : '-'}
+              </p>
               <p className="text-sm font-semibold">
-                {t('components.resultsItem.situationAt', { date: item.attributes.dates['date-situation-as-at'] })}
+                {item.attributes.dates
+                  ? t('components.resultsItem.situationAt', {
+                      date: item.attributes.dates['date-situation-as-at']
+                    })
+                  : t('components.resultsItem.situationAtNotAvailable')}
               </p>
             </div>
           </div>
